@@ -2,6 +2,7 @@ import style from './CreateProduct.module.scss';
 
 
 //COMPONENTES
+import { useDropzone }  from 'react-dropzone';
 import { notifyError, notifySuccess } from '../../utils/notifications';
 import baseURL from '../../config/baseUrl';
 import {TextField, Button} from '@mui/material'
@@ -10,7 +11,6 @@ import { useSelector } from 'react-redux';
 
 const CreateProduct = ()=>{
       const token = useSelector(state => state.currentUser.accessToken);
-      console.log(token);
       const [categories, setCategories] = useState([]);
       const [product, setProduct] = useState({
             image : '',
@@ -57,19 +57,50 @@ const CreateProduct = ()=>{
             .catch(err => notifyError(err.response.data.error))
       },[])
 
+      //TEMP
+      const handleDrop = (acceptedFiles, fileRejections) => {
+            if (fileRejections.length === 0) imageFileToBase64File(acceptedFiles);
+      };
+
+
+      const { getRootProps, getInputProps, fileRejections } = useDropzone({
+            multiple: false,
+            maxFiles: 5,
+            accept: "image/jpg ,image/jpeg, image/png",
+            onDrop: (acceptedFiles, fileRejections) => handleDrop(acceptedFiles, fileRejections),
+      });
+
+      const imageFileToBase64File = (acceptedFiles) => {
+            let files = [];
+            if(acceptedFiles.length){
+                  acceptedFiles.forEach( item => {
+                        const reader = new FileReader();
+                        console.log(item)
+                        reader.readAsDataURL( item )
+
+                        reader.onloadend = () => {
+                              files.push(reader.result)
+                              if(files.length === acceptedFiles.length){
+                                    setProduct({
+                                          ...product,
+                                          images : [...product.images, ...files]
+                                    })
+                              }
+                        }
+                  })
+            }
+      };
+
+
       return(
             <div className={style.container}>
                   <Button onClick={()=> window.history.go(-1)} variant="contained">Back</Button>
                   <form onSubmit={ handlerSubmit } className={style.formContainer}>
                         
-                        <input 
-                              type='file' 
-                              name='image'
-                              accept="image/png, image/jpeg" 
-                              id='prueba'
-                              onChange = {handlerChange}
-                        />
-
+                        <div {...getRootProps()} className={style.dropZone}>
+                              <input {...getInputProps()}/>
+                              <p>Add image</p>
+                        </div>
                         <select onChange={handlerChange} name='category'>
                               {categories.length ? categories.map(item => <option>{item.name}</option>) : ''}
                         </select>
