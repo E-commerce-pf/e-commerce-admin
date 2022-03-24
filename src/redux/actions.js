@@ -44,10 +44,9 @@ export const deleteUser = (id, token) => {
 
 export const logIn =  (email, password, navigate) =>{
       return async dispatch => {
-            await baseURL.post('user/login',{
+            await baseURL.post('admin/login',{
                   email,
                   password,
-                  isAdmin : true
             })
             .then(res => {
                   dispatch( {type: LOGIN, payload : res.data} );
