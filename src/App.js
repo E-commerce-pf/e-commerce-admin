@@ -7,6 +7,8 @@ import Users from "./pages/Users/Users";
 import Product from "./pages/Product/Product";
 import EditUser from "./pages/Users/EditUser";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
+import Categories from "./pages/Categories/Categories";
+import Category from './pages/Category/Category'
 
 const App = () => {
   return (
@@ -19,6 +21,9 @@ const App = () => {
         <Route path="/transactions" element={<Transactions/>}/>
         <Route path="/product/:id" element={<Product/>}/>
         <Route path='/create/product' element={<CreateProduct/>}/>
+        <Route path="/categories" element={<Categories/>}/>
+        <Route path="/category/:id" element={<Category/>}/>
+
       </Routes>
     </>
   )
