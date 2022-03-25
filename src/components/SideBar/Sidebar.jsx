@@ -10,7 +10,9 @@ const Sidebar = ()=>{
             <div className={style.container}>
                   <Button variant="outlined" className='btn_mui' onClick={()=> navigate('/home')}>Home</Button>
                   <Button variant="outlined" className='btn_mui' onClick={()=>navigate('/users')}>Users</Button>
+                  <Button variant="outlined" className='btn_mui' onClick={()=>navigate('/categories')}>Categories</Button>
                   <Button variant="outlined" className='btn_mui' onClick={()=>navigate('/transactions')}>Transactions</Button>
+
             </div>
       )
 }

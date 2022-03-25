@@ -17,6 +17,7 @@ import baseURL from "../../config/baseUrl";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { notifyError, notifySuccess } from "../../utils/notifications";
 
 
 /*
@@ -34,7 +35,7 @@ const Users = ()=>{
       const adminToken = useSelector(state=>state.currentUser.accessToken);
 
       const toggleMenu = (id)=>{
-            console.log(document.querySelector(`#${id}`).classList)
+            console.log(document.querySelector(`#${id}`))
             document.querySelector(`#${id}`).classList.toggle(style.enable)
       }
 
@@ -75,18 +76,40 @@ const Users = ()=>{
 
                                           <div className={style.menu}>
 
-                                                <button onClick={ ()=> toggleMenu('m'+e.name)}>
+                                                <button onClick={ ()=> toggleMenu(`m${e.id}`)}>
                                                       <MoreVertIcon/>
                                                 </button>
-                                                <div className={style.menuContainer} id={`m${e.name}`}>
+                                                <div className={style.menuContainer} id={`m${e.id}`}>
                                                       <List >
-                                                            <ListItemButton component="button"  onClick={() => alert('Button')}>
+                                                            <ListItemButton 
+                                                                  component="button"  
+                                                                  onClick={() => {
+                                                                        baseURL.put(`admin/user/forcepassword/${e.id}`, {}, {headers:{token : adminToken}})
+                                                                        .then(res => notifySuccess(res.data.success))
+                                                                        .catch(err => notifyError(err.response.data.error));
+                                                                  }}
+                                                            >
                                                                   <ListItemText primary='Forzar contraseña'/>
                                                             </ListItemButton>
-                                                            <ListItemButton component="button" onClick={() => alert('Button')}>
+
+                                                            <ListItemButton 
+                                                                  component="button" 
+                                                                  onClick={() => {
+                                                                        baseURL.put(`admin/user/updateAdmin/${e.id}`, {}, {headers: {token : adminToken}})
+                                                                        .then(res => notifySuccess(res.data.success))
+                                                                        .catch(err => notifyError(err.response.data.error))
+                                                            }}>
                                                                   <ListItemText primary='Cambiar privilegios'/>
                                                             </ListItemButton>
-                                                            <ListItemButton component="button" onClick={() => alert('Button')} >
+
+                                                            <ListItemButton 
+                                                                  component="button" 
+                                                                  onClick={() => {
+                                                                        baseURL.put(`admin/user/delete/${e.id}`, {}, {headers:{token: adminToken}})
+                                                                        .then(res => notifySuccess(res.data.success))
+                                                                        .catch(err => notifyError(err.response.data.error));
+                                                                  }} 
+                                                            >
                                                                   <ListItemText primary='Banear usuario' />
                                                             </ListItemButton>
                                                       </List>
