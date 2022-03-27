@@ -6,7 +6,7 @@ import style from './Home.module.scss';
 //COMPONENTES
 import ProductsContainer from '../../components/ProductsContainer/ProductsContainer';
 import Sidebar from '../../components/SideBar/Sidebar';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -21,15 +21,16 @@ const Home = () => {
 	const products = useSelector((state) => state.allProducts);
 
 	return (
-		<div className={style.container}>
+		<Grid container direction="row" className={style.container}>
 			<Sidebar />
 			{products ? (
 				<ProductsContainer products={products} token={token} />
 			) : null}
+
 			<Button variant='contained' onClick={() => navigate('/create/product')}>
 				Crear publicacion
 			</Button>
-		</div>
+		</Grid>
 	);
 };
 export default Home;

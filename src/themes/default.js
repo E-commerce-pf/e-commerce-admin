@@ -92,7 +92,7 @@ const defaultTheme = {
 				backgroundColor: 'white',
 			},
 		},
-		MuiTableRow: {
+		MuiTableproducts: {
 			root: {
 				height: 56,
 			},

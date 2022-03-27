@@ -1,8 +1,10 @@
 .tablecontainer{
       width: 70%;
+      width: 80%;
       grid-column-start: 2;
       text-align: center;
       margin: auto;
+      margin-top: 60px;
       .categories{
             display: grid;
             grid-template-columns: repeat(6, 1fr);

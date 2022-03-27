@@ -108,8 +108,7 @@ const Sidebar = () => {
 		<>
 			<Box sx={{ display: 'flex' }}>
 				<CssBaseline />
-				<AppBar color ='secondary'
-                         position='fixed' open={open}>
+				<AppBar color='inherit' position='fixed' open={open}>
 					<Toolbar>
 						<IconButton
 							color='inherit'
@@ -140,7 +139,7 @@ const Sidebar = () => {
 					</DrawerHeader>
 					<Divider />
 					<List>
-						{['Lista Productos ', 'Usuarios',].map((text, index) => (
+						{['Lista Productos ', 'Usuarios'].map((text, index) => (
 							<ListItemButton
 								key={text}
 								sx={{
@@ -161,11 +160,9 @@ const Sidebar = () => {
 									) : (
 										<PersonIcon onClick={() => navigate('/users')} />
 									)}
-                                                      
 								</ListItemIcon>
-                                                
+
 								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                                                
 							</ListItemButton>
 						))}
 					</List>
@@ -189,7 +186,7 @@ const Sidebar = () => {
 									{index % 2 === 0 ? (
 										<CategoryIcon onClick={() => navigate('/categories')} />
 									) : (
-										<PaidIcon onClick={()=>navigate('/transactions')} />
+										<PaidIcon onClick={() => navigate('/transactions')} />
 									)}
 								</ListItemIcon>
 								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
@@ -198,7 +195,7 @@ const Sidebar = () => {
 					</List>
 					<Divider />
 				</Drawer>
-				<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+				<Box component='main' sx={{ flexGproducts: 1, p: 3 }}>
 					<DrawerHeader />
 					<></>
 				</Box>
