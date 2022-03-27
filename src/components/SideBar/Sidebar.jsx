@@ -22,6 +22,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import PersonIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
 import PaidIcon from '@mui/icons-material/Paid';
+import AddIcon from '@mui/icons-material/Add';
 
 const drawerWidth = 240;
 
@@ -185,6 +186,33 @@ const Sidebar = () => {
 								>
 									{index % 2 === 0 ? (
 										<CategoryIcon onClick={() => navigate('/categories')} />
+									) : (
+										<PaidIcon onClick={() => navigate('/transactions')} />
+									)}
+								</ListItemIcon>
+								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+						))}
+					</List>
+					<List>
+						{['Crear Productos'].map((text, index) => (
+							<ListItemButton
+								key={text}
+								sx={{
+									minHeight: 48,
+									justifyContent: open ? 'initial' : 'center',
+									px: 2.5,
+								}}
+							>
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : 'auto',
+										justifyContent: 'center',
+									}}
+								>
+									{index % 2 === 0 ? (
+										<AddIcon onClick={() => navigate('/create/product')} />
 									) : (
 										<PaidIcon onClick={() => navigate('/transactions')} />
 									)}

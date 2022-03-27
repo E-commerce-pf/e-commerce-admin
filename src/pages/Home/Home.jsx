@@ -21,15 +21,11 @@ const Home = () => {
 	const products = useSelector((state) => state.allProducts);
 
 	return (
-		<Grid container direction="row" className={style.container}>
+		<Grid container direction='row' className={style.container}>
 			<Sidebar />
 			{products ? (
 				<ProductsContainer products={products} token={token} />
 			) : null}
-
-			<Button variant='contained' onClick={() => navigate('/create/product')}>
-				Crear publicacion
-			</Button>
 		</Grid>
 	);
 };
