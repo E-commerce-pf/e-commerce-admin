@@ -21,12 +21,12 @@ const Home = ()=>{
 
       const products = useSelector(state => state.allProducts);
 
-
+      console.log('Esto son los productos',products.result)
       return (
             <div className={style.container}>
                   <Sidebar/>
-                  { products.result ? 
-                        <ProductsContainer products={products.result} token={token}/> 
+                  { products ? 
+                        <ProductsContainer products={products} token={token}/> 
                         : null
                   } 
                   <Button variant="contained" onClick={()=> navigate('/create/product')}>Crear publicacion</Button>
