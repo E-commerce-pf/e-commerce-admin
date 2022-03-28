@@ -1,5 +1,6 @@
 .container{
-      display: grid;
+      width: 100%;
+      padding: auto;
       grid-template-columns: 200px 2fr;
       .tablecontainer{
             width: 70%;

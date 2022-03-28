@@ -44,7 +44,7 @@ const Users = ()=>{
             dispatch(getAllUsers(adminToken))
       },[dispatch]);
 
-      console.log(users);
+ 
       return(
             <div className={style.container}>
                   <Sidebar/>
