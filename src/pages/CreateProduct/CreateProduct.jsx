@@ -1,4 +1,6 @@
 import style from './CreateProduct.module.scss';
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 //COMPONENTES
 import { useDropzone } from 'react-dropzone';
@@ -7,8 +9,18 @@ import baseURL from '../../config/baseUrl';
 import { TextField, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import firebaseConfing from '../../config/firebase';
 
 const CreateProduct = () => {
+	const firebaseConfig = {
+            apiKey: "AIzaSyCLPv_0OD28irbXx8efWvki-_JeESAmdss",
+            authDomain: "everyones-app.firebaseapp.com",
+            projectId: "everyones-app",
+            storageBucket: "everyones-app.appspot.com",
+      };
+
+      const app = initializeApp(firebaseConfig);
+	const storage = getStorage( app )
 	const token = useSelector((state) => state.currentUser.accessToken);
 	const [categories, setCategories] = useState([]);
 	const [product, setProduct] = useState({
@@ -23,14 +35,12 @@ const CreateProduct = () => {
 	const handlerChange = (event) => {
 		switch (event.target.name) {
 			case 'category':
-				console.log('Hola');
 				setProduct({
 					...product,
 					categories: [...product.categories, event.target.value],
 				});
 				return;
 			default:
-				console.log('Hola2');
 				setProduct({
 					...product,
 					[event.target.name]: event.target.value,
@@ -63,38 +73,42 @@ const CreateProduct = () => {
 	}, []);
 
 	//TEMP
-	const handleDrop = (acceptedFiles, fileRejections) => {
-		if (fileRejections.length === 0) imageFileToBase64File(acceptedFiles);
-	};
-
 	const { getRootProps, getInputProps, fileRejections } = useDropzone({
 		multiple: false,
 		maxFiles: 5,
 		accept: 'image/jpg ,image/jpeg, image/png',
-		onDrop: (acceptedFiles, fileRejections) =>
-			handleDrop(acceptedFiles, fileRejections),
+		onDrop: (acceptedFiles, fileRejections) => {
+			if (fileRejections.length === 0) uploadImage(acceptedFiles);
+		},
 	});
 
-	const imageFileToBase64File = (acceptedFiles) => {
-		let files = [];
-		if (acceptedFiles.length) {
-			acceptedFiles.forEach((item) => {
-				const reader = new FileReader();
-				console.log(item);
-				reader.readAsDataURL(item);
-
-				reader.onloadend = () => {
-					files.push(reader.result);
-					if (files.length === acceptedFiles.length) {
-						setProduct({
-							...product,
-							images: [...product.images, ...files],
-						});
-					}
-				};
-			});
+	const uploadImage = ( acceptedFiles )=>{
+		const file = acceptedFiles[0];
+		const filename = new Date().getTime() + file.name;
+		const storageRef = ref(storage, filename);
+		const uploadTask = uploadBytesResumable(storageRef , file)
+		uploadTask.on( 'state_changed', (snapshot) =>{
+			const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			console.log(`Upload is ${progress}% done`);
+			switch(snapshot.state){
+				case 'pause' :
+					console.log('Upload is paused');
+					break;
+				case 'running' :
+					console.log('Upload is running');
+					break;
+			}
+		}, (error) => console.log(error),
+		() => {
+			getDownloadURL(uploadTask.snapshot.ref) .then( dowloadURL => {
+				setProduct({
+					...product ,
+					image : dowloadURL
+				});
+			})
 		}
-	};
+		)
+	}	
 
 	return (
 		<div className={style.container}>
@@ -102,10 +116,16 @@ const CreateProduct = () => {
 				Back
 			</Button>
 			<form onSubmit={handlerSubmit} className={style.formContainer}>
+				{product.image ? <div className={style.preview} >
+					<img src={product.image} />
+					<Button variant='contained' onClick={ () => setProduct({...product, image : ''})}> Delete </Button>
+				</div> 
+				:
 				<div {...getRootProps()} className={style.dropZone}>
 					<input {...getInputProps()} />
 					<p>Add image</p>
 				</div>
+				}
 				<select onChange={handlerChange} name='category'>
 					{categories.length
 						? categories.map((item) => <option>{item.name}</option>)
