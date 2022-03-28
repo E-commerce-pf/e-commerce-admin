@@ -1,7 +1,6 @@
 import style from './Sidebar.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -23,6 +22,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
 import PaidIcon from '@mui/icons-material/Paid';
 import AddIcon from '@mui/icons-material/Add';
+import { useSelector, } from 'react-redux';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+
 
 const drawerWidth = 240;
 
@@ -92,6 +94,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Sidebar = () => {
+	const user = useSelector((state) => state.currentUser);
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
@@ -123,8 +126,16 @@ const Sidebar = () => {
 						>
 							<MenuIcon />
 						</IconButton>
+						<Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+          >
+        
+          </Typography>
 						<Typography variant='h6' noWrap component='div'>
-							Panel Administrativo Everyone
+							Panel Administrativo Everyone Store
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -140,7 +151,17 @@ const Sidebar = () => {
 					</DrawerHeader>
 					<Divider />
 					<List>
-						{['Lista Productos ', 'Usuarios'].map((text, index) => (
+						<ListItemButton >
+							<ListItemIcon >
+
+								<SupervisorAccountIcon
+								 />
+							</ListItemIcon>
+							<ListItemText className={style.name}
+							 primary={user.name} secondary='Perfil administrador' />
+						</ListItemButton>
+						{[ 
+							'Lista Productos ', 'Usuarios'].map((text, index) => (
 							<ListItemButton
 								key={text}
 								sx={{
