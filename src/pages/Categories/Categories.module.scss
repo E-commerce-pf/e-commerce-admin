@@ -22,5 +22,10 @@
             .category:hover{
                   background-color: rgb(190, 190, 190);
             }
+
+      }
+
+      .formCreateCategory{
+            grid-column-start: 2;
       }
 }
