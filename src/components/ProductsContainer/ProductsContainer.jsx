@@ -303,6 +303,7 @@ const ProductsContainer = ({ products, token, title, id }) => {
 								{stableSort(products, getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 									.map((products, index) => {
+										console.log(products)
 										const isItemSelected = isSelected(products.title);
 										const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -343,7 +344,7 @@ const ProductsContainer = ({ products, token, title, id }) => {
 
 													align='right'
 												>
-													<EditIcon onClick={() => navigate(`/product/${id}`)} />
+													<EditIcon onClick={() => navigate(`/product/${products.id}`)} />
 												</TableCell>
 											</TableRow>
 										);

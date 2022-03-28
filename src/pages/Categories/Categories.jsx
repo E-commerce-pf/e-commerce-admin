@@ -67,7 +67,7 @@ const Categories = ()=>{
 
                   </div>
 
-                  <div>
+                  <div className={style.formCreateCategory}>
                         <h1>Crear una categoria</h1>
                         <form onSubmit={ handlerSubmit }>
                               <TextField
