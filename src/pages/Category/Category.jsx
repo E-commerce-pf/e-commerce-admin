@@ -17,15 +17,14 @@ const Category = ()=>{
                   console.log(res.data)
                   setProducts(res.data.products)
             })
-      },[])
-
+      },[]);
 
       return(
             <div className={style.container}>
                   <Sidebar/>
                   <ProductsContainer products={products} token={token}/> 
             </div>
-      )
+      );
 }
 
 export default Category;
