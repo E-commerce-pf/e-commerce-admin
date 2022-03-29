@@ -57,10 +57,6 @@ const CreateProduct = () => {
 			.catch((err) => notifyError(err.response.data.error));
 	}, []);
 
-	useEffect(()=>{
-		console.log(product)
-	},[product]);
-
 	const { getRootProps, getInputProps } = useDropzone({
 		multiple: true,
 		maxFiles: 5,
@@ -75,6 +71,7 @@ const CreateProduct = () => {
 			<Button onClick={() => window.history.go(-1)} variant='contained'>
 				Back
 			</Button>
+
 			<form onSubmit={handlerSubmit} className={style.formContainer}>
 				{product.image ? <div className={style.preview} >
 					<img src={product.image} />
@@ -94,7 +91,7 @@ const CreateProduct = () => {
 				}
 				<select onChange={handlerChange} name='category'>
 					{categories.length
-						? categories.map((item) => <option>{item.name}</option>)
+						? categories.map((item) => <option key={item.name}>{item.name}</option>)
 						: ''}
 				</select>
 

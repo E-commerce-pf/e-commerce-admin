@@ -18,14 +18,14 @@ const Login = ()=>{
       const handlerSubmit = event =>{
             event.preventDefault()
             dispatch( logIn(user.email, user.password, navigate) );
-      }
+      };
 
       const handlerChange = event =>{
             setUser({
                   ...user,
                   [event.target.name] : event.target.value
             });
-      }
+      };
 
       return (
             <div>
@@ -52,6 +52,6 @@ const Login = ()=>{
                         </Button>
                   </form>
             </div>
-      )
+      );
 }
 export default Login;
