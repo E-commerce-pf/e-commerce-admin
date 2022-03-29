@@ -7,6 +7,12 @@ import baseURL from '../../config/baseUrl';
 import { TextField, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Sidebar from '../../components/SideBar/Sidebar';
+
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const CreateProduct = () => {
 	const token = useSelector((state) => state.currentUser.accessToken);
@@ -98,9 +104,7 @@ const CreateProduct = () => {
 
 	return (
 		<div className={style.container}>
-			<Button onClick={() => window.history.go(-1)} variant='contained'>
-				Back
-			</Button>
+			<Sidebar />
 			<form onSubmit={handlerSubmit} className={style.formContainer}>
 				<div {...getRootProps()} className={style.dropZone}>
 					<input {...getInputProps()} />
