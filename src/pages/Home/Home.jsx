@@ -20,14 +20,16 @@ const Home = () => {
 	}, []);
 
 	return (
-		<>
-		<Grid container direction='row' className={style.container}>
-			<Sidebar />
-			{products ? (
-				<ProductsContainer products={products} token={token} />
-			) : null}
-		</Grid>
-		</>
+		<div className={style.container}>
+			<div className={style.item}>
+				<Sidebar />
+			</div>
+			<div className={style.item}>
+				{products ? (
+					<ProductsContainer products={products} token={token} />
+				) : null}
+			</div>
+		</div>
 	);
 };
 export default Home;
