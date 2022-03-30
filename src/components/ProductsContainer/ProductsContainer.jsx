@@ -27,7 +27,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const pageSize = 10; // Para cambiar el tamaño del paginado
 
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
