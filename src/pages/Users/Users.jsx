@@ -65,7 +65,7 @@ const Users = ()=>{
                                     let time = e.createdAt.split('T')[0].split('-').reverse();
                                     let yearsDiff = date.getFullYear()-time[2];
                                     let monthsDiff = date.getMonth()+1-time[1];
-                                    return <div className={style.userElement}>
+                                    return <div className={style.userElement} key={e.id}>
                                           <p>{e.email}</p>
                                           <p>{e.lastName ? e.name +' '+e.lastName : e.name}</p>
                                           <p>{e.country}</p>

@@ -112,7 +112,7 @@ const CreateProduct = () => {
 				</div>
 				<select onChange={handlerChange} name='category'>
 					{categories.length
-						? categories.map((item) => <option>{item.name}</option>)
+						? categories.map((item) => <option key={item.name}>{item.name}</option>)
 						: ''}
 				</select>
 
