@@ -18,8 +18,24 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { indigo, purple } from '@mui/material/colors';
 
-const theme = createTheme();
+const theme = createTheme({
+	palette: {
+		primary: {
+			light: '#757ce8',
+			main: indigo[900],
+			dark: '#002884',
+			contrastText: '#fff',
+		},
+		secondary: {
+			light: '#ff7961',
+			main: '#f44336',
+			dark: '#ba000d',
+			contrastText: '#000',
+		},
+	},
+});
 
 const Login = () => {
 	const dispatch = useDispatch();
@@ -71,7 +87,7 @@ const Login = () => {
 							alignItems: 'center',
 						}}
 					>
-						<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+						<Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
 							<LockOutlinedIcon />
 						</Avatar>
 						<Typography component='h1' variant='h5'>

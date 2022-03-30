@@ -21,14 +21,21 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {indigo, purple} from '@mui/material/colors';
 
 const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#3f51b5',
+			light: '#757ce8',
+			main: indigo[900],
+			dark: '#002884',
+			contrastText: '#fff',
 		},
 		secondary: {
-			main: '#f50057',
+			light: '#ff7961',
+			main: '#f44336',
+			dark: '#ba000d',
+			contrastText: '#000',
 		},
 	},
 });
