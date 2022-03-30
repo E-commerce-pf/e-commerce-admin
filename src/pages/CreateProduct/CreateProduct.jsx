@@ -147,7 +147,7 @@ const CreateProduct = () => {
 								<progress value={status.running} max='100' />
 							</div>
 						)}
-						<select onChange={handlerChange} name='category'>
+						<select   onChange={handlerChange} name='category'>
 							{categories.length
 								? categories.map((item) => (
 										<option key={item.name}>{item.name}</option>
@@ -196,6 +196,8 @@ const CreateProduct = () => {
 								fullWidth
 								variant='contained'
 								sx={{ mt: 3, mb: 2 }}
+								color='primary'
+								onClick={handlerSubmit} 
 							>
 								Create product
 							</Button>
