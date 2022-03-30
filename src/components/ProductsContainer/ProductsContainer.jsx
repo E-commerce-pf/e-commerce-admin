@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './ProductsContainer.module.scss';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
@@ -115,7 +115,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-	const {
+	const { 
 		onSelectAllClick,
 		order,
 		orderBy,
@@ -175,65 +175,68 @@ EnhancedTableHead.propTypes = {
 	rowCount: PropTypes.number.isRequired,
 };
 
-const EnhancedTableToolbar = (props) => {
-	const { numSelected } = props;
 
-	return (
-		<Toolbar
-			sx={{
-				pl: { sm: 2 },
-				pr: { xs: 1, sm: 1 },
-				...(numSelected > 0 && {
-					bgcolor: (theme) =>
-						alpha(
-							theme.palette.primary.main,
-							theme.palette.action.activatedOpacity
-						),
-				}),
-			}}
-		>
-			{numSelected > 0 ? (
-				<Typography
-					sx={{ flex: '1 1 100%' }}
-					color='inherit'
-					variant='subtitle1'
-					component='div'
-				>
-					{numSelected} selected
-				</Typography>
-			) : (
-				<Typography
-					sx={{ flex: '1 1 100%' }}
-					variant='h6'
-					id='tableTitle'
-					component='div'
-				>
-					Lista de productos
-				</Typography>
-			)}
+const ProductsContainer = ( { token, products,} ) => {
 
-			{numSelected > 0 ? (
-				<Tooltip title='Delete'>
-					<IconButton>
-						<DeleteIcon />
-					</IconButton>
-				</Tooltip>
-			) : (
-				<Tooltip title='Filter list'>
-					<IconButton>
-						<FilterListIcon />
-					</IconButton>
-				</Tooltip>
-			)}
-		</Toolbar>
-	);
-};
+	const EnhancedTableToolbar = (props) => {
+		const { numSelected } = props;
+	
+		return (
+			<Toolbar
+				sx={{
+					pl: { sm: 2 },
+					pr: { xs: 1, sm: 1 },
+					...(numSelected > 0 && {
+						bgcolor: (theme) =>
+							alpha(
+								theme.palette.primary.main,
+								theme.palette.action.activatedOpacity
+							),
+					}),
+				}}
+			>
+				{numSelected > 0 ? (
+					<Typography
+						sx={{ flex: '1 1 100%' }}
+						color='inherit'
+						variant='subtitle1'
+						component='div'
+					>
+						{numSelected} selected
+					</Typography>
+				) : (
+					<Typography
+						sx={{ flex: '1 1 100%' }}
+						variant='h6'
+						id='tableTitle'
+						component='div'
+					>
+						Lista de productos
+					</Typography>
+				)}
+	
+				{numSelected > 0 ? (
+					<Tooltip title='Delete'>
+						<IconButton onClick={ deleteAll }>
+							<DeleteIcon />
+						</IconButton>
+					</Tooltip>
+				) : (
+					<Tooltip title='Filter list'>
+						<IconButton>
+							<FilterListIcon />
+						</IconButton>
+					</Tooltip>
+				)}
+			</Toolbar>
+		);
+	};
 
-EnhancedTableToolbar.propTypes = {
-	numSelected: PropTypes.number.isRequired,
-};
+	
+	EnhancedTableToolbar.propTypes = {
+		numSelected: PropTypes.number.isRequired,
+	};
 
-const ProductsContainer = ({ token, products }) => {
 	const deleteItem = (id) => {
 		baseURL
 			.delete(`admin/product/${id}`, {
@@ -249,6 +252,12 @@ const ProductsContainer = ({ token, products }) => {
 			})
 			.catch((err) => notifyError(err.response.data.error));
 	};
+
+	const deleteAll = ()=> {
+		selected.forEach((item)=>{
+			baseURL.delete(`admin/product/${item}`, {headers: { token } })
+		})
+	}
 
 	const navigate = useNavigate();
 	const [order, setOrder] = React.useState('asc');
@@ -266,12 +275,14 @@ const ProductsContainer = ({ token, products }) => {
 
 	const handleSelectAllClick = (event) => {
 		if (event.target.checked) {
-			const newSelecteds = products.map((n) => n.title);
+			console.log(event.target.checked)
+			const newSelecteds = products.map((n) => n.id);
 			setSelected(newSelecteds);
 			return;
 		}
 		setSelected([]);
 	};
+
 
 	const handleClick = (event, title) => {
 		const selectedIndex = selected.indexOf(title);
@@ -328,17 +339,16 @@ const ProductsContainer = ({ token, products }) => {
 								numSelected={selected.length}
 								order={order}
 								orderBy={orderBy}
-								onSelectAllClick={handleSelectAllClick}
+								onSelectAllClick={ handleSelectAllClick }
 								onRequestSort={handleRequestSort}
 								rowCount={products.length}
 							/>
 							<TableBody>
 								{/* if you don't need to support IE11, you can replace the `stableSort` call with:
-				   rows.slice().sort(getComparator(order, orderBy)) */}
+				   				rows.slice().sort(getComparator(order, orderBy)) */}
 								{stableSort(products, getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 									.map((products, index) => {
-										console.log(products);
 										const isItemSelected = isSelected(products.title);
 										const labelId = `enhanced-table-checkbox-${index}`;
 
