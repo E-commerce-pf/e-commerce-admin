@@ -26,9 +26,30 @@ import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import baseURL from '../../config/baseUrl';
+import { createTheme } from '@mui/material/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { indigo } from '@mui/material/colors';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
 //COMPONENTES
 import { notifyError, notifySuccess } from '../../utils/notifications';
+
+const theme = createTheme({
+	palette: {
+		primary: {
+			light: '#757ce8',
+			main: indigo[900],
+			dark: '#002884',
+			contrastText: '#fff',
+		},
+		secondary: {
+			light: '#ff7961',
+			main: '#f44336',
+			dark: '#ba000d',
+			contrastText: '#000',
+		},
+	},
+});
 
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
@@ -216,14 +237,14 @@ const ProductsContainer = ( { token, products,} ) => {
 		numSelected: PropTypes.number.isRequired,
 	};
 
-
 	const deleteItem = (id) => {
-		baseURL.delete(`admin/product/${id}`, {
+		baseURL
+			.delete(`admin/product/${id}`, {
 				headers: {
 					token,
 				},
 			})
-			.then((res) =>{
+			.then((res) => {
 				notifySuccess(res.data.success);
 				setTimeout(() => {
 					window.location.reload();
@@ -303,7 +324,8 @@ const ProductsContainer = ( { token, products,} ) => {
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
 	return (
-		<div className={style.tablecontainer}>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
 			<Box sx={{ width: '100%' }}>
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					<EnhancedTableToolbar numSelected={selected.length} />
@@ -369,7 +391,9 @@ const ProductsContainer = ( { token, products,} ) => {
 													/>
 												</TableCell>
 												<TableCell align='right'>
-													<DeleteOutlineIcon onClick={()=>deleteItem(products.id)} />
+													<DeleteOutlineIcon
+														onClick={() => deleteItem(products.id)}
+													/>
 												</TableCell>
 											</TableRow>
 										);
@@ -401,7 +425,7 @@ const ProductsContainer = ( { token, products,} ) => {
 					label='Dense padding'
 				/>
 			</Box>
-		</div>
+		</ThemeProvider>
 	);
 };
 

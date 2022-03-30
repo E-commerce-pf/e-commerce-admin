@@ -24,6 +24,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import AddIcon from '@mui/icons-material/Add';
 import { useSelector, } from 'react-redux';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
 
 const drawerWidth = 240;
@@ -109,9 +110,9 @@ const Sidebar = () => {
 	const navigate = useNavigate();
 
 	return (
-		<>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
 			<Box sx={{ display: 'flex' }}>
-				<CssBaseline />
 				<AppBar color='inherit' position='fixed' open={open}>
 					<Toolbar>
 						<IconButton
@@ -249,7 +250,7 @@ const Sidebar = () => {
 					<></>
 				</Box>
 			</Box>
-		</>
+		</ThemeProvider>
 	);
 };
 export default Sidebar;
