@@ -154,6 +154,7 @@ const CreateProduct = () => {
 								<progress value={status.running} max='100' />
 							</div>
 						)}
+						
 						<select   onChange={handlerChange} name='category'>
 							{categories.length
 								? categories.map((item) => (

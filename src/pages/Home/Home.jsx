@@ -21,8 +21,8 @@ const Home = () => {
 
 	return (
 		<>
+		<Sidebar />
 		<Grid container direction='row' className={style.container}>
-			<Sidebar />
 			{products ? (
 				<ProductsContainer products={products} token={token} />
 			) : null}
