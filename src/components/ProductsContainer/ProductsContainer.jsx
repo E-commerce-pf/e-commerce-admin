@@ -24,11 +24,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import baseURL from '../../config/baseUrl';
 
-//COMPONENTES
-import { notifyError, notifySuccess } from '../../utils/notifications';
+
 
 const pageSize = 10; // Para cambiar el tamaño del paginado
 
@@ -214,34 +211,18 @@ EnhancedTableToolbar.propTypes = {
 	numSelected: PropTypes.number.isRequired,
 };
 
-const ProductsContainer = ({
-	token,
-	products,
-}) => {
-	const deleteItem = (id) => {
-	
-		baseURL
-			.delete(`admin/product/${id}`, {
-				headers: {
-					token,
-				},
-			})
-			.then((res) =>{
-				notifySuccess(res.data.success);
-				setTimeout(() => {
-					window.location.reload();
-			}, 3500);
-			})
-			.catch((err) => notifyError(err.response.data.error));
-	};
-
+const ProductsContainer = ({ products, token, title, id }) => {
 	const navigate = useNavigate();
+	const EditProduct = () => {
+		navigate(`/admin/products/edit/${id}`);
+	};
 	const [order, setOrder] = React.useState('asc');
 	const [orderBy, setOrderBy] = React.useState('calories');
 	const [selected, setSelected] = React.useState([]);
 	const [page, setPage] = React.useState(0);
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
 
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === 'asc';
@@ -322,7 +303,7 @@ const ProductsContainer = ({
 								{stableSort(products, getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 									.map((products, index) => {
-										console.log(products);
+										console.log(products)
 										const isItemSelected = isSelected(products.title);
 										const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -359,13 +340,11 @@ const ProductsContainer = ({
 												<TableCell align='right'>{products.sales}</TableCell>
 												<TableCell align='right'>{products.stock}</TableCell>
 												<TableCell align='right'>{products.discount}</TableCell>
-												<TableCell align='right'>
-													<EditIcon
-														onClick={() => navigate(`/product/${products.id}`)}
-													/>
-												</TableCell>
-												<TableCell align='right'>
-													<DeleteOutlineIcon onClick={()=>deleteItem(products.id)} />
+												<TableCell
+
+													align='right'
+												>
+													<EditIcon onClick={() => navigate(`/product/${products.id}`)} />
 												</TableCell>
 											</TableRow>
 										);
