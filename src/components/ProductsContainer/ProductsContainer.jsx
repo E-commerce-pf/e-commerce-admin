@@ -215,19 +215,23 @@ EnhancedTableToolbar.propTypes = {
 };
 
 const ProductsContainer = ({
-	id,
 	token,
 	products,
 }) => {
-	const deleteItem = () => {
-		const url = `${process.env.REACT_APP_API_URL}/products/${id}`;
+	const deleteItem = (id) => {
+	
 		baseURL
 			.delete(`admin/product/${id}`, {
 				headers: {
 					token,
 				},
 			})
-			.then((res) => notifySuccess(res.data.success))
+			.then((res) =>{
+				notifySuccess(res.data.success);
+				setTimeout(() => {
+					window.location.reload();
+			}, 3500);
+			})
 			.catch((err) => notifyError(err.response.data.error));
 	};
 
@@ -361,7 +365,7 @@ const ProductsContainer = ({
 													/>
 												</TableCell>
 												<TableCell align='right'>
-													<DeleteOutlineIcon onClick={deleteItem} />
+													<DeleteOutlineIcon onClick={()=>deleteItem(products.id)} />
 												</TableCell>
 											</TableRow>
 										);
