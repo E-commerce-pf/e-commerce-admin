@@ -10,10 +10,12 @@ import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import Categories from "./pages/Categories/Categories";
 import Category from './pages/Category/Category'
 
+
 const App = () => {
   return (
     <>
       <Routes>
+    
         <Route path='/' element={<Login/>} />
         <Route path="/home" element={<Home/>}/>
         <Route path="/users" element={<Users/>}/>
