@@ -30,7 +30,6 @@ import baseURL from '../../config/baseUrl';
 //COMPONENTES
 import { notifyError, notifySuccess } from '../../utils/notifications';
 
-const pageSize = 10; // Para cambiar el tamaño del paginado
 
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
