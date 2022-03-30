@@ -24,6 +24,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import baseURL from '../../config/baseUrl';
+
+//COMPONENTES
+import { notifyError, notifySuccess } from '../../utils/notifications';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -208,18 +213,34 @@ EnhancedTableToolbar.propTypes = {
 	numSelected: PropTypes.number.isRequired,
 };
 
-const ProductsContainer = ({ products, token, title, id }) => {
-	const navigate = useNavigate();
-	const EditProduct = () => {
-		navigate(`/admin/products/edit/${id}`);
+const ProductsContainer = ({
+	token,
+	products,
+}) => {
+	const deleteItem = (id) => {
+	
+		baseURL
+			.delete(`admin/product/${id}`, {
+				headers: {
+					token,
+				},
+			})
+			.then((res) =>{
+				notifySuccess(res.data.success);
+				setTimeout(() => {
+					window.location.reload();
+			}, 3500);
+			})
+			.catch((err) => notifyError(err.response.data.error));
 	};
+
+	const navigate = useNavigate();
 	const [order, setOrder] = React.useState('asc');
 	const [orderBy, setOrderBy] = React.useState('calories');
 	const [selected, setSelected] = React.useState([]);
 	const [page, setPage] = React.useState(0);
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
 
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === 'asc';
@@ -300,7 +321,7 @@ const ProductsContainer = ({ products, token, title, id }) => {
 								{stableSort(products, getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 									.map((products, index) => {
-										console.log(products)
+										console.log(products);
 										const isItemSelected = isSelected(products.title);
 										const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -337,11 +358,13 @@ const ProductsContainer = ({ products, token, title, id }) => {
 												<TableCell align='right'>{products.sales}</TableCell>
 												<TableCell align='right'>{products.stock}</TableCell>
 												<TableCell align='right'>{products.discount}</TableCell>
-												<TableCell
-
-													align='right'
-												>
-													<EditIcon onClick={() => navigate(`/product/${products.id}`)} />
+												<TableCell align='right'>
+													<EditIcon
+														onClick={() => navigate(`/product/${products.id}`)}
+													/>
+												</TableCell>
+												<TableCell align='right'>
+													<DeleteOutlineIcon onClick={()=>deleteItem(products.id)} />
 												</TableCell>
 											</TableRow>
 										);
@@ -376,60 +399,5 @@ const ProductsContainer = ({ products, token, title, id }) => {
 		</div>
 	);
 };
-
-// 	const [page, setPage] = useState(0);
-// 	return (
-// 		// <div className={style.tablecontainer}>
-// 		// 	<h1>Total productos : {products.length} </h1>
-// 		// 	<div className={style.categories}>
-// 		// 		<h1>TITLE</h1>
-// 		// 		<h1>PRICE</h1>
-// 		// 		<h1>STOCK</h1>
-// 		// 		<h1>SALES</h1>
-// 		// 		<h1>DISCOUNT</h1>
-// 		// 	</div>
-// 		// 	<div className={style.productContainer}>
-// 		// 		{products
-// 		// 			?.slice(page * pageSize, (page + 1) * pageSize)
-// 		// 			.map((item, index) => {
-// 		// 				return (
-// 		// 					<ProductContainer
-// 		// 						key={index}
-// 		// 						id={item.id}
-// 		// 						title={item.title}
-// 		// 						price={item.price}
-// 		// 						stock={item.stock}
-// 		// 						sales={item.sales}
-// 		// 						discount={item.discount}
-// 		// 						token={token}
-// 		// 					/>
-// 		// 				);
-// 		// 			})}
-// 		// 	</div>
-
-// 		// 	<div className={style.pag}>
-// 		// 		<button
-// 		// 			type='button'
-// 		// 			onClick={() => {
-// 		// 				if (page > 0) setPage(page - 1);
-// 		// 			}}
-// 		// 		>
-// 		// 			Previous
-// 		// 		</button>
-// 		// 		<button
-// 		// 			type='button'
-// 		// 			onClick={() => {
-// 		// 				if ((page + 1) * pageSize < products.length) setPage(page + 1);
-// 		// 			}}
-// 		// 		>
-// 		// 			Next
-// 		// 		</button>
-// 		// 	</div>
-// 		// </div>
-//             <>
-
-//             </>
-// 	);
-// };
 
 export default ProductsContainer;
