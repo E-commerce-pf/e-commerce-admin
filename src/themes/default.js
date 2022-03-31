@@ -1,8 +1,7 @@
 import tinycolor from 'tinycolor2';
 import { indigo, purple } from '@mui/material/colors';
 
-const primary = '#536DFE';
-const secondary = '#FF5C93';
+
 const warning = '#FFC260';
 const success = '#3CD4A0';
 const info = '#9013FE';
@@ -13,14 +12,14 @@ const darkenRate = 15;
 const defaultTheme = {
 	palette: {
 		primary: {
-			light: '#757ce8',
+			light: '#9c27b0',
 			main: indigo[900],
 			dark: '#002884',
 			contrastText: '#fff',
 		},
 		secondary: {
 			light: '#ff7961',
-			main: '#f44336',
+			main: '#212121',
 			dark: '#ba000d',
 			contrastText: '#000',
 		},
@@ -41,7 +40,7 @@ const defaultTheme = {
 		},
 		text: {
 			primary: '#4A4A4A',
-			secondary: '#6E6E6E',
+			secondary: ' indigo[900]',
 			hint: '#B9B9B9',
 		},
 		background: {
@@ -77,9 +76,9 @@ const defaultTheme = {
 		MuiListItem: {
 			root: {
 				'&$selected': {
-					backgroundColor: '#F3F5FF !important',
+					backgroundColor: ' indigo[900] !important',
 					'&:focus': {
-						backgroundColor: '#F3F5FF',
+						backgroundColor: ' indigo[900]',
 					},
 				},
 			},
