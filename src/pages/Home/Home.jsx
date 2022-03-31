@@ -19,15 +19,14 @@ const Home = () => {
 	}, []);
 
 	return (
-		<>
-			<Sidebar title='Inicio'>
+		<Sidebar title='Inicio'>
 				<Box>
 					{products ? (
 						<ProductsContainer products={products} token={token} />
 					) : null}
 				</Box>
+	
 			</Sidebar>
-		</>
 
 	);
 };
