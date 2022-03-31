@@ -33,25 +33,12 @@ import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
+
 //COMPONENTES
 import { notifyError, notifySuccess } from '../../utils/notifications';
 
-const theme = createTheme({
-	palette: {
-		primary: {
-			light: '#757ce8',
-			main: indigo[900],
-			dark: '#002884',
-			contrastText: '#fff',
-		},
-		secondary: {
-			light: '#ff7961',
-			main: '#f44336',
-			dark: '#ba000d',
-			contrastText: '#000',
-		},
-	},
-});
+
+
 
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
@@ -321,10 +308,20 @@ const ProductsContainer = ({ token, products }) => {
 	const emptyProducts =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
+	
+
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
+		<>
+	
 			<Box>
+				<Fab
+					size='medium'
+					color='primary'
+					aria-label='add'
+					style={{ position: 'fixed', bottom: '20px', right: '20px' }}
+				>
+					<AddIcon onClick={() => navigate('/create/product')} />
+				</Fab>
 				<Paper>
 					<EnhancedTableToolbar numSelected={selected.length} />
 					<TableContainer>
@@ -423,7 +420,7 @@ const ProductsContainer = ({ token, products }) => {
 					label='Dense padding'
 				/>
 			</Box>
-		</ThemeProvider>
+		</>
 	);
 };
 

@@ -24,19 +24,28 @@ import Select from '@mui/material/Select';
 import UploadIcon from '@mui/icons-material/Upload';
 import LinearProgress from '@mui/material/LinearProgress';
 import ClearIcon from '@mui/icons-material/Clear';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import Slide from '@mui/material/Slide';
 
-
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return <Slide direction='up' ref={ref} {...props} />;
+});
 
 const CreateProduct = () => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
-	  setOpen(true);
+		setOpen(true);
 	};
-  
+
 	const handleClose = () => {
-	  setOpen(false);
+		setOpen(false);
 	};
 	const [category, setCategory] = React.useState('');
 	const handleChange = (event) => {
@@ -163,8 +172,7 @@ const CreateProduct = () => {
 								>
 									<UploadIcon /> Upload Image 1 - 5
 								</Button>
-								<Box sx={{ width: '100%' }}>	
-								</Box>
+								<Box sx={{ width: '100%' }}></Box>
 							</Grid>
 						)}
 						<Grid container spacing={2}>
@@ -224,15 +232,36 @@ const CreateProduct = () => {
 							</Grid>
 						</Grid>
 						<Button
-							type='submit'
 							fullWidth
 							variant='contained'
 							sx={{ mt: 3, mb: 2 }}
 							color='primary'
-							onClick={handlerSubmit}
+							onClick={handleClickOpen}
 						>
 							Create product
 						</Button>
+						<Dialog
+							open={open}
+							TransitionComponent={Transition}
+							keepMounted
+							onClose={handleClose}
+							aria-describedby='alert-dialog-slide-description'
+						>
+							<DialogTitle>
+								{'Create product termins and condition'}
+							</DialogTitle>
+							<DialogContent>
+								<DialogContentText id='alert-dialog-slide-description'>
+									Sure to create product ?
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={handleClose}>Not Create</Button>
+								<Button type='submit' onClick={handlerSubmit}>
+									Yes Create
+								</Button>
+							</DialogActions>
+						</Dialog>
 						<Grid container justifyContent='flex-end'>
 							<Grid item>
 								<Link href='#' variant='body2'>

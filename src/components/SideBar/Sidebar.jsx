@@ -79,14 +79,8 @@ function Sidebar(props) {
 				</ListItemIcon>
 				<ListItemText primary='Logout' />
 			</ListItem>
-			<ListItem button  onClick={() => navigate('/create/product')}>
-				<ListItemIcon>
-				<Fab size="small" color='primary' aria-label='add' className={style.fab}>
-					<AddIcon onClick={() => navigate('/create/product')} />
-				</Fab>
-				</ListItemIcon>
-				<ListItemText primary='Create' />
-			</ListItem>
+		
+	
 			
 		</div>
 	);
