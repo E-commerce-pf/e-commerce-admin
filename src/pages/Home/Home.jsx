@@ -15,7 +15,7 @@ const Home = () => {
 
 	//Buscamos todos los productos creados
 	useEffect(() => {
-		dispatch(getAllProducts(token));
+		dispatch( getAllProducts() );
 	}, []);
 
 	return (
@@ -28,6 +28,7 @@ const Home = () => {
 				</Box>
 			</Sidebar>
 		</>
+
 	);
 };
 export default Home;

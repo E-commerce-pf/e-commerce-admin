@@ -1,7 +1,9 @@
 .container{
+      display: flex;
       width: 100%;
       padding: auto;
-      grid-template-columns: 200px 2fr;
+      justify-content: center;
+
       .tablecontainer{
             width: 70%;
             grid-column-start: 2;
