@@ -1,10 +1,7 @@
 import style from './Sidebar.module.scss';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,245 +9,378 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import PersonIcon from '@mui/icons-material/Person';
-import CategoryIcon from '@mui/icons-material/Category';
-import PaidIcon from '@mui/icons-material/Paid';
+import AppBar from '@mui/material/AppBar';
+import Drawer from '@mui/material/Drawer';
+import ListItem from '@mui/material/ListItem';
+import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
-import { useSelector, } from 'react-redux';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import CategoryIcon from '@mui/icons-material/Category';
+import GroupIcon from '@mui/icons-material/Group';
+import { useSelector } from 'react-redux';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
+// const drawerWidth = 240;
+
+// const openedMixin = (theme) => ({
+// 	width: drawerWidth,
+// 	transition: theme.transitions.create('width', {
+// 		easing: theme.transitions.easing.sharp,
+// 		duration: theme.transitions.duration.enteringScreen,
+// 	}),
+// 	overflowX: 'hidden',
+// });
+
+// const closedMixin = (theme) => ({
+// 	transition: theme.transitions.create('width', {
+// 		easing: theme.transitions.easing.sharp,
+// 		duration: theme.transitions.duration.leavingScreen,
+// 	}),
+// 	overflowX: 'hidden',
+// 	width: `calc(${theme.spacing(7)} + 1px)`,
+// 	[theme.breakpoints.up('sm')]: {
+// 		width: `calc(${theme.spacing(8)} + 1px)`,
+// 	},
+// });
+
+// const DrawerHeader = styled('div')(({ theme }) => ({
+// 	display: 'flex',
+// 	alignItems: 'center',
+// 	justifyContent: 'flex-end',
+// 	padding: theme.spacing(0, 1),
+// 	// necessary for content to be below app bar
+// 	...theme.mixins.toolbar,
+// }));
+
+// const AppBar = styled(MuiAppBar, {
+// 	shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+// 	zIndex: theme.zIndex.drawer + 1,
+// 	transition: theme.transitions.create(['width', 'margin'], {
+// 		easing: theme.transitions.easing.sharp,
+// 		duration: theme.transitions.duration.leavingScreen,
+// 	}),
+// 	...(open && {
+// 		marginLeft: drawerWidth,
+// 		width: `calc(100% - ${drawerWidth}px)`,
+// 		transition: theme.transitions.create(['width', 'margin'], {
+// 			easing: theme.transitions.easing.sharp,
+// 			duration: theme.transitions.duration.enteringScreen,
+// 		}),
+// 	}),
+// }));
+
+// const Drawer = styled(MuiDrawer, {
+// 	shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+// 	width: drawerWidth,
+// 	flexShrink: 0,
+// 	whiteSpace: 'nowrap',
+// 	boxSizing: 'border-box',
+// 	...(open && {
+// 		...openedMixin(theme),
+// 		'& .MuiDrawer-paper': openedMixin(theme),
+// 	}),
+// 	...(!open && {
+// 		...closedMixin(theme),
+// 		'& .MuiDrawer-paper': closedMixin(theme),
+// 	}),
+// }));
+
+// const Sidebar = () => {
+
+// 	const user = useSelector((state) => state.currentUser);
+// 	const theme = useTheme();
+// 	const [open, setOpen] = React.useState(false);
+
+// 	const handleDrawerOpen = () => {
+// 		setOpen(true);
+// 	};
+
+// 	const handleDrawerClose = () => {
+// 		setOpen(false);
+// 	};
+
+// 	const navigate = useNavigate();
+
+// 	return (
+// 		<>
+// 			<CssBaseline />
+// 			<Box sx={{ display: 'flex' }}>
+// 				<AppBar color='inherit' position='fixed' open={open}>
+// 					<Toolbar>
+// 						<IconButton
+// 							color='inherit'
+// 							aria-label='open drawer'
+// 							onClick={handleDrawerOpen}
+// 							edge='start'
+// 							sx={{
+// 								marginRight: 5,
+// 								...(open && { display: 'none' }),
+// 							}}
+// 						>
+// 							<MenuIcon />
+// 						</IconButton>
+// 						<Typography
+//             variant="h6"
+//             noWrap
+//             component="div"
+//             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+//           >
+
+//           </Typography>
+// 						<Typography variant='h6' noWrap component='div'>
+// 							Panel Administrativo Everyone Store
+// 						</Typography>
+// 					</Toolbar>
+// 				</AppBar>
+// 				<Drawer variant='permanent' open={open}>
+// 					<DrawerHeader>
+// 						<IconButton onClick={handleDrawerClose}>
+// 							{theme.direction === 'rtl' ? (
+// 								<ChevronRightIcon />
+// 							) : (
+// 								<ChevronLeftIcon />
+// 							)}
+// 						</IconButton>
+// 					</DrawerHeader>
+// 					<Divider />
+// 					<List>
+// 						<ListItemButton >
+// 							<ListItemIcon >
+
+// 								<SupervisorAccountIcon
+// 								 />
+// 							</ListItemIcon>
+// 							<ListItemText className={style.name}
+// 							 primary={user.name} secondary='Perfil administrador' />
+// 						</ListItemButton>
+// 						{[
+// 							'Lista Productos ', 'Usuarios'].map((text, index) => (
+// 							<ListItemButton
+// 								key={text}
+// 								sx={{
+// 									minHeight: 48,
+// 									justifyContent: open ? 'initial' : 'center',
+// 									px: 2.5,
+// 								}}
+// 							>
+// 								<ListItemIcon
+// 									sx={{
+// 										minWidth: 0,
+// 										mr: open ? 3 : 'auto',
+// 										justifyContent: 'center',
+// 									}}
+// 								>
+// 									{index % 2 === 0 ? (
+// 										<InboxIcon onClick={() => navigate('/home')} />
+// 									) : (
+// 										<PersonIcon onClick={() => navigate('/users')} />
+// 									)}
+// 								</ListItemIcon>
+
+// 								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+// 							</ListItemButton>
+// 						))}
+// 					</List>
+// 					<List>
+// 						{['Categorias', 'Transaccion'].map((text, index) => (
+// 							<ListItemButton
+// 								key={text}
+// 								sx={{
+// 									minHeight: 48,
+// 									justifyContent: open ? 'initial' : 'center',
+// 									px: 2.5,
+// 								}}
+// 							>
+// 								<ListItemIcon
+// 									sx={{
+// 										minWidth: 0,
+// 										mr: open ? 3 : 'auto',
+// 										justifyContent: 'center',
+// 									}}
+// 								>
+// 									{index % 2 === 0 ? (
+// 										<CategoryIcon onClick={() => navigate('/categories')} />
+// 									) : (
+// 										<PaidIcon onClick={() => navigate('/transactions')} />
+// 									)}
+// 								</ListItemIcon>
+// 								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+// 							</ListItemButton>
+// 						))}
+// 					</List>
+// 					<List>
+// 						{['Crear Productos'].map((text, index) => (
+// 							<ListItemButton
+// 								key={text}
+// 								sx={{
+// 									minHeight: 48,
+// 									justifyContent: open ? 'initial' : 'center',
+// 									px: 2.5,
+// 								}}
+// 							>
+// 								<ListItemIcon
+// 									sx={{
+// 										minWidth: 0,
+// 										mr: open ? 3 : 'auto',
+// 										justifyContent: 'center',
+// 									}}
+// 								>
+// 									{index % 2 === 0 ? (
+// 										<AddIcon onClick={() => navigate('/create/product')} />
+// 									) : (
+// 										<PaidIcon onClick={() => navigate('/transactions')} />
+// 									)}
+// 								</ListItemIcon>
+// 								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+// 							</ListItemButton>
+// 						))}
+// 					</List>
+// 					<Divider />
+// 				</Drawer>
+// 				<Box component='main' sx={{ flexGproducts: 1, p: 3 }}>
+// 					<DrawerHeader />
+// 					<></>
+// 				</Box>
+// 			</Box>
+// 		</>
+// 	);
+// };
+// export default Sidebar;
 
 const drawerWidth = 240;
 
-const openedMixin = (theme) => ({
-	width: drawerWidth,
-	transition: theme.transitions.create('width', {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.enteringScreen,
-	}),
-	overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-	transition: theme.transitions.create('width', {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	overflowX: 'hidden',
-	width: `calc(${theme.spacing(7)} + 1px)`,
-	[theme.breakpoints.up('sm')]: {
-		width: `calc(${theme.spacing(8)} + 1px)`,
-	},
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'flex-end',
-	padding: theme.spacing(0, 1),
-	// necessary for content to be below app bar
-	...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-	shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-	zIndex: theme.zIndex.drawer + 1,
-	transition: theme.transitions.create(['width', 'margin'], {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	...(open && {
-		marginLeft: drawerWidth,
-		width: `calc(100% - ${drawerWidth}px)`,
-		transition: theme.transitions.create(['width', 'margin'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	}),
-}));
-
-const Drawer = styled(MuiDrawer, {
-	shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-	width: drawerWidth,
-	flexShrink: 0,
-	whiteSpace: 'nowrap',
-	boxSizing: 'border-box',
-	...(open && {
-		...openedMixin(theme),
-		'& .MuiDrawer-paper': openedMixin(theme),
-	}),
-	...(!open && {
-		...closedMixin(theme),
-		'& .MuiDrawer-paper': closedMixin(theme),
-	}),
-}));
-
-const Sidebar = () => {
+function Sidebar(props) {
 	const user = useSelector((state) => state.currentUser);
-	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
-
-	const handleDrawerOpen = () => {
-		setOpen(true);
-	};
-
-	const handleDrawerClose = () => {
-		setOpen(false);
-	};
+	const [mobileOpen, setMobileOpen] = React.useState(false);
 
 	const navigate = useNavigate();
 
-	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Box sx={{ display: 'flex' }}>
-				<AppBar color='inherit' position='fixed' open={open}>
-					<Toolbar>
-						<IconButton
-							color='inherit'
-							aria-label='open drawer'
-							onClick={handleDrawerOpen}
-							edge='start'
-							sx={{
-								marginRight: 5,
-								...(open && { display: 'none' }),
-							}}
-						>
-							<MenuIcon />
-						</IconButton>
-						<Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-        
-          </Typography>
-						<Typography variant='h6' noWrap component='div'>
-							Panel Administrativo Everyone Store
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	};
+
+	const drawer = (
+		<div>
+			<Toolbar>
+				<Typography variant='h6' noWrap>
+					<AdminPanelSettingsIcon />  {user.name}
+						<Typography>
+						Perfil admin
 						</Typography>
-					</Toolbar>
-				</AppBar>
-				<Drawer variant='permanent' open={open}>
-					<DrawerHeader>
-						<IconButton onClick={handleDrawerClose}>
-							{theme.direction === 'rtl' ? (
-								<ChevronRightIcon />
-							) : (
-								<ChevronLeftIcon />
-							)}
-						</IconButton>
-					</DrawerHeader>
-					<Divider />
-					<List>
-						<ListItemButton >
-							<ListItemIcon >
+				</Typography>
+			</Toolbar>
 
-								<SupervisorAccountIcon
-								 />
-							</ListItemIcon>
-							<ListItemText className={style.name}
-							 primary={user.name} secondary='Perfil administrador' />
-						</ListItemButton>
-						{[ 
-							'Lista Productos ', 'Usuarios'].map((text, index) => (
-							<ListItemButton
-								key={text}
-								sx={{
-									minHeight: 48,
-									justifyContent: open ? 'initial' : 'center',
-									px: 2.5,
-								}}
-							>
-								<ListItemIcon
-									sx={{
-										minWidth: 0,
-										mr: open ? 3 : 'auto',
-										justifyContent: 'center',
-									}}
-								>
-									{index % 2 === 0 ? (
-										<InboxIcon onClick={() => navigate('/home')} />
-									) : (
-										<PersonIcon onClick={() => navigate('/users')} />
-									)}
-								</ListItemIcon>
-
-								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-							</ListItemButton>
-						))}
-					</List>
-					<List>
-						{['Categorias', 'Transaccion'].map((text, index) => (
-							<ListItemButton
-								key={text}
-								sx={{
-									minHeight: 48,
-									justifyContent: open ? 'initial' : 'center',
-									px: 2.5,
-								}}
-							>
-								<ListItemIcon
-									sx={{
-										minWidth: 0,
-										mr: open ? 3 : 'auto',
-										justifyContent: 'center',
-									}}
-								>
-									{index % 2 === 0 ? (
-										<CategoryIcon onClick={() => navigate('/categories')} />
-									) : (
-										<PaidIcon onClick={() => navigate('/transactions')} />
-									)}
-								</ListItemIcon>
-								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-							</ListItemButton>
-						))}
-					</List>
-					<List>
-						{['Crear Productos'].map((text, index) => (
-							<ListItemButton
-								key={text}
-								sx={{
-									minHeight: 48,
-									justifyContent: open ? 'initial' : 'center',
-									px: 2.5,
-								}}
-							>
-								<ListItemIcon
-									sx={{
-										minWidth: 0,
-										mr: open ? 3 : 'auto',
-										justifyContent: 'center',
-									}}
-								>
-									{index % 2 === 0 ? (
-										<AddIcon onClick={() => navigate('/create/product')} />
-									) : (
-										<PaidIcon onClick={() => navigate('/transactions')} />
-									)}
-								</ListItemIcon>
-								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-							</ListItemButton>
-						))}
-					</List>
-					<Divider />
-				</Drawer>
-				<Box component='main' sx={{ flexGproducts: 1, p: 3 }}>
-					<DrawerHeader />
-					<></>
-				</Box>
-			</Box>
-		</ThemeProvider>
+			<Divider />
+			<List>
+				<ListItem button onClick={() => navigate('/home')}>
+					<ListItemIcon>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary='Home' />
+				</ListItem>
+				{/* <ListItem button onClick={() => navigate('/create/product')}>
+					<ListItemIcon>
+						<AddIcon />
+					</ListItemIcon>
+					<ListItemText primary='Crear Producto' />
+				</ListItem> */}
+			</List>
+			<Divider />
+			<List>
+				<ListItem button onClick={() => navigate('/categories')}>
+					<ListItemIcon>
+						<CategoryIcon />
+					</ListItemIcon>
+					<ListItemText primary='Category' />
+				</ListItem>
+				<ListItem button onClick={() => navigate('/users')}>
+					<ListItemIcon>
+						<GroupIcon />
+					</ListItemIcon>
+					<ListItemText primary='User' />
+				</ListItem>
+			</List>
+		</div>
 	);
-};
+
+	return (
+		<Box sx={{ display: 'flex' }}>
+			<CssBaseline />
+			<AppBar
+				position='fixed'
+				sx={{
+					width: { sm: `calc(100% - ${drawerWidth}px)` },
+					ml: { sm: `${drawerWidth}px` },
+				}}
+			>
+				<Toolbar>
+					<IconButton
+						color='inherit'
+						aria-label='open drawer'
+						edge='start'
+						onClick={handleDrawerToggle}
+						sx={{ mr: 2, display: { sm: 'none' } }}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Typography variant='h6' noWrap component='div'>
+						{props.title}
+					</Typography>
+				</Toolbar>
+			</AppBar>
+			<Box
+				component='nav'
+				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+				aria-label='mailbox folders'
+			>
+				<Drawer
+					variant='temporary'
+					open={mobileOpen}
+					onClose={handleDrawerToggle}
+					ModalProps={{
+						keepMounted: true, // Better open performance on mobile.
+					}}
+					sx={{
+						display: { xs: 'block', sm: 'none' },
+						'& .MuiDrawer-paper': {
+							boxSizing: 'border-box',
+							width: drawerWidth,
+						},
+					}}
+				>
+					{drawer}
+				</Drawer>
+				<Drawer
+					variant='permanent'
+					sx={{
+						display: { xs: 'none', sm: 'block' },
+						'& .MuiDrawer-paper': {
+							boxSizing: 'border-box',
+							width: drawerWidth,
+						},
+					}}
+					open
+				>
+					{drawer}
+				</Drawer>
+			</Box>
+			<Box
+				component='main'
+				sx={{
+					flexGrow: 1,
+					p: 1,
+					width: { xs: '100%', sm: `calc(100% - ${drawerWidth}px)` },
+				}}
+			>
+				<Toolbar />
+				{props.children}
+			</Box>
+		</Box>
+	);
+}
+
 export default Sidebar;
