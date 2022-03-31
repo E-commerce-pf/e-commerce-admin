@@ -29,7 +29,8 @@ ReactDOM.render(
     </BrowserRouter>
     <ToastContainer/>
     </UserProvider>
-  </LayoutProvider>,
+  </LayoutProvider>
+  ,
   document.getElementById('root')
 );
 

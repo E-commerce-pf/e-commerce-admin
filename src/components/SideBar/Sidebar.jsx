@@ -22,7 +22,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Everylogopf from '../../components/img/Everylogopf.png';
 import { CardActionArea, Grid } from '@mui/material';
-
+import Fab from '@mui/material/Fab';
 const drawerWidth = 240;
 
 function Sidebar(props) {
@@ -72,20 +72,22 @@ function Sidebar(props) {
 				</ListItemIcon>
 				<ListItemText primary='User' />
 			</ListItem>
-			<ListItem button onClick={() => navigate('/create/product')}>
-				<ListItemIcon>
-					<AddIcon  color='secondary'  />
-				</ListItemIcon>
-				<ListItemText primary='Crear Producto' />
-			</ListItem>
 			<Divider />
-			
 			<ListItem>
 				<ListItemIcon>
 					<LogoutIcon   color='secondary' />
 				</ListItemIcon>
 				<ListItemText primary='Logout' />
 			</ListItem>
+			<ListItem button  onClick={() => navigate('/create/product')}>
+				<ListItemIcon>
+				<Fab size="small" color='primary' aria-label='add' className={style.fab}>
+					<AddIcon onClick={() => navigate('/create/product')} />
+				</Fab>
+				</ListItemIcon>
+				<ListItemText primary='Create' />
+			</ListItem>
+			
 		</div>
 	);
 

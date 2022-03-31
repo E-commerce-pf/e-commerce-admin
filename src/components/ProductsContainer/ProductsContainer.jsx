@@ -30,6 +30,8 @@ import { createTheme } from '@mui/material/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { indigo } from '@mui/material/colors';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 //COMPONENTES
 import { notifyError, notifySuccess } from '../../utils/notifications';

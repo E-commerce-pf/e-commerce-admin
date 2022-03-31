@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Transactions from './pages/Transactions/Transactions';
@@ -9,6 +8,7 @@ import EditUser from './pages/Users/EditUser';
 import CreateProduct from './pages/CreateProduct/CreateProduct';
 import Categories from './pages/Categories/Categories';
 import Category from './pages/Category/Category';
+
 
 const App = () => {
 	return (

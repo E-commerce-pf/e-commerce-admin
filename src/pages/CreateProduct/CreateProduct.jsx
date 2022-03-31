@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import baseURL from '../../config/baseUrl';
@@ -16,10 +17,32 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import UploadIcon from '@mui/icons-material/Upload';
+import LinearProgress from '@mui/material/LinearProgress';
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 
 
 const CreateProduct = () => {
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+	  setOpen(true);
+	};
+  
+	const handleClose = () => {
+	  setOpen(false);
+	};
+	const [category, setCategory] = React.useState('');
+	const handleChange = (event) => {
+		setCategory(event.target.value);
+	};
+
 	const token = useSelector((state) => state.currentUser.accessToken);
 	const [categories, setCategories] = useState([]);
 	const [status, setStatus] = useState({});
@@ -109,36 +132,41 @@ const CreateProduct = () => {
 							<div>
 								<img src={product.image} />
 								<Button
+									value='clear'
+									fullWidth
+									sx={{ mt: 3, mb: 2 }}
 									variant='contained'
+									startIcon={<ClearIcon />}
 									onClick={() => {
 										setProduct({ ...product, image: '' });
 										setStatus({ running: 0 });
 									}}
 								>
-									{' '}
-									Delete{' '}
+									Delete image
 								</Button>
-								<p>{product.image.length} / 5</p>
-								<progress value={status.running} max='100' />
+								<Typography>{product.image.length} / 5</Typography>
+
+								<Box sx={{ width: '100%' }}>
+									<LinearProgress value={status.running} max='100' />
+								</Box>
 							</div>
 						) : (
-							<div {...getRootProps()}>
+							<Grid item xs={12} sm={6} {...getRootProps()}>
 								<input {...getInputProps()} />
-								<Button variant='contained' component='span'>
-									Selec a image
+								<Button
+									type='submit'
+									fullWidth
+									variant='contained'
+									sx={{ mt: 3, mb: 2 }}
+									color='primary'
+									onClick={handlerSubmit}
+								>
+									<UploadIcon /> Upload Image 1 - 5
 								</Button>
-
-								<progress value={status.running} max='100' />
-							</div>
+								<Box sx={{ width: '100%' }}>	
+								</Box>
+							</Grid>
 						)}
-
-						<select onChange={handlerChange} name='category'>
-							{categories.length
-								? categories.map((item) => (
-										<option key={item.name}>{item.name}</option>
-								  ))
-								: ''}
-						</select>
 						<Grid container spacing={2}>
 							<Grid item xs={12} sm={6}>
 								<TextField
@@ -146,6 +174,25 @@ const CreateProduct = () => {
 									name='title'
 									onChange={handlerChange}
 								/>
+							</Grid>
+							<Grid item xs={12} sm={6}>
+								<FormControl fullWidth>
+									<InputLabel id='category'>Select Category</InputLabel>
+									<Select
+										onChange={handlerChange}
+										name='category'
+										labelId='category'
+										id='category'
+										value={category}
+										label='Age'
+									>
+										{categories.map((item) => (
+											<MenuItem key={item.name} value={item.name}>
+												{item.name}
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
 							</Grid>
 							<Grid item xs={12} sm={6}>
 								<TextField
