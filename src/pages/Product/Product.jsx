@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 
 //COMPONENTES
 import baseURL from '../../config/baseUrl';
-import {notifyError, notifySuccess} from '../../utils/notifications'
-import {TextField, Button, ButtonGroup} from '@mui/material'
+import { notifyError, notifySuccess } from '../../utils/notifications'
+import { TextField, Button } from '@mui/material'
+import ImageCarrousel from '../../components/imageCarrousel/ImageCarrousel';
 
-import style from './Product.modules.css';
-
+import style from './Product.module.scss';
 
 const Product = ()=>{
       const { id }= useParams();
@@ -25,10 +25,6 @@ const Product = ()=>{
             discount: 0,
             categories : []
       });
-
-
-      // console.log(details);
-      // console.log(categories);
 
       const handlerChange = (event)=>{
             console.log(event.target.name, event.target.value);
@@ -69,6 +65,7 @@ const Product = ()=>{
 
             await baseURL.get(`product/${id}`)
             .then(res => {
+                  console.log(res.data)
                   setDetails({
                         title : res.data.title,
                         description : res.data.description,
@@ -83,19 +80,28 @@ const Product = ()=>{
             .catch(err => notifyError(err.response.data.error))
       },[]);
 
+      console.log(details)
       return (
-            <div className='container_gral_prod'>
-                  <div className='container_for_img'>
-                  <div className='img_txt'>
-                  <img className='img_prod' src={details.image}/>
-                  <p>Categorias</p>
-                  {details.categories.map(item =>{
-                        return <h5 className='txt_til' key={item.name}>{item.name}</h5>
-                  })}
-                  <h3 className='txt_til'>Sales : {details.sales}</h3>
+            <div className={style.container}>
+                  <Button 
+                  style={{position:'absolute', top:0}} 
+                  variant='contained'
+                  onClick={() => window.history.back()}
+                  >
+                        Back
+                  </Button>
+
+                  <div className={style.productInfo}>
+                        {details.image ? <ImageCarrousel images={details.image} /> : '' }
+                        <p>Categories</p>
+                        {details.categories.map(item =>{
+                              return <h5 className='txt_til' key={item.name}>{item.name}</h5>
+                        })}
+                        <h3 className='txt_til'>Sales : {details.sales}</h3>
                   </div>
+
                   
-                  <form  className='form_prod' onSubmit={ handlerSubmit }>
+                  <form  className={style.formContainer} onSubmit={ handlerSubmit }>
                         <label className='txt_til'>Categoria</label>
                         <select className='select__' name='category'  onChange={ handlerChange } defaultChecked='Categoria'>
                               {categories.map(item =>{
@@ -105,14 +111,15 @@ const Product = ()=>{
 
                         <TextField
                               className='textf_'
-                              label='Titulo'
+                              label='Title'
                               name='title'
                               value = {details.title}
                               onChange={ handlerChange }
                         />
+
                         <TextField
                               className='textf_'
-                              label='Precio'
+                              label='Price'
                               name='price'
                               type='number'
                               value = {details.price}
@@ -121,26 +128,23 @@ const Product = ()=>{
 
                         <TextField
                               className='textf_'
-                              label='Cantidad'
+                              label='Stock'
                               name='stock'
                               type='number'
                               value = {details.stock}
                               onChange={ handlerChange }
                         />
-                        
+
                         <textarea
-                              
                               className='text_f_'
                               value = {details.description}
                               name='description'
                               onChange={ handlerChange }
                         />
 
-                        <Button type='submit' variant="contained">Actualizar</Button>
+                        <Button type='submit' variant="contained">Update</Button>
                   </form>
-        
-                  </div>
-                   </div>
+            </div>
       )
 }
 export default Product;

@@ -67,13 +67,9 @@ export const getAllUsers = (token)=>{
       }
 };
 
-export const getAllProducts = (token)=>{
+export const getAllProducts = ()=>{
       return async dispatch =>{
-            await baseURL.get('/product',{
-                  headers:{
-                        token
-                  }
-            })
+            await baseURL.get('/product')
             .then(res => {
                   dispatch( {type: GET_ALL_PRODUCTS, payload: res.data} )
             })

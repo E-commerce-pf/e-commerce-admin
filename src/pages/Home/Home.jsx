@@ -7,7 +7,6 @@ import style from './Home.module.scss';
 //COMPONENTES
 import ProductsContainer from '../../components/ProductsContainer/ProductsContainer';
 import Sidebar from '../../components/SideBar/Sidebar';
-import { Grid } from '@mui/material';
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -16,7 +15,7 @@ const Home = () => {
 
 	//Buscamos todos los productos creados
 	useEffect(() => {
-		dispatch(getAllProducts(token));
+		dispatch( getAllProducts() );
 	}, []);
 
 	return (
