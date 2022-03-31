@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import baseURL from '../../config/baseUrl';
 import style from './CreateProduct.module.scss';
-import SideBar from '../../components/SideBar/Sidebar';
+import Sidebar from '../../components/SideBar/Sidebar';
 import Everylogopf from '../../components/img/Everylogopf.png';
 
 //COMPONENTES
@@ -10,35 +10,14 @@ import uploadImage from '../../utils/uploadImage';
 import { useDropzone } from 'react-dropzone';
 import { notifyError, notifySuccess } from '../../utils/notifications';
 import { TextField, Button } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {indigo, purple} from '@mui/material/colors';
 
-const theme = createTheme({
-	palette: {
-		primary: {
-			light: '#757ce8',
-			main: indigo[900],
-			dark: '#002884',
-			contrastText: '#fff',
-		},
-		secondary: {
-			light: '#ff7961',
-			main: '#f44336',
-			dark: '#ba000d',
-			contrastText: '#000',
-		},
-	},
-});
+
 
 const CreateProduct = () => {
 	const token = useSelector((state) => state.currentUser.accessToken);
@@ -104,8 +83,7 @@ const CreateProduct = () => {
 	});
 
 	return (
-		<ThemeProvider theme={theme}>
-			<SideBar />
+		<Sidebar title='Crear producto'>
 			<Container component='main' maxWidth='xs'>
 				<CssBaseline />
 				<Box
@@ -116,9 +94,8 @@ const CreateProduct = () => {
 						alignItems: 'center',
 					}}
 				>
-					
-						<img src={Everylogopf} alt='img' width='150px' height='100px' />
-					
+					<img src={Everylogopf} alt='img' width='150px' height='100px' />
+
 					<Typography component='h1' variant='h5'>
 						Create product exclusive
 					</Typography>
@@ -154,8 +131,8 @@ const CreateProduct = () => {
 								<progress value={status.running} max='100' />
 							</div>
 						)}
-						
-						<select   onChange={handlerChange} name='category'>
+
+						<select onChange={handlerChange} name='category'>
 							{categories.length
 								? categories.map((item) => (
 										<option key={item.name}>{item.name}</option>
@@ -199,27 +176,27 @@ const CreateProduct = () => {
 								/>
 							</Grid>
 						</Grid>
-							<Button
-								type='submit'
-								fullWidth
-								variant='contained'
-								sx={{ mt: 3, mb: 2 }}
-								color='primary'
-								onClick={handlerSubmit} 
-							>
-								Create product
-							</Button>
-							<Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Promote your product here !
-                </Link>
-              </Grid>
-            </Grid>
+						<Button
+							type='submit'
+							fullWidth
+							variant='contained'
+							sx={{ mt: 3, mb: 2 }}
+							color='primary'
+							onClick={handlerSubmit}
+						>
+							Create product
+						</Button>
+						<Grid container justifyContent='flex-end'>
+							<Grid item>
+								<Link href='#' variant='body2'>
+									Promote your product here !
+								</Link>
+							</Grid>
+						</Grid>
 					</Box>
 				</Box>
 			</Container>
-		</ThemeProvider>
+		</Sidebar>
 	);
 };
 

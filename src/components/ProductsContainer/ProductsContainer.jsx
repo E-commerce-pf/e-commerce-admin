@@ -115,7 +115,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-	const { 
+	const {
 		onSelectAllClick,
 		order,
 		orderBy,
@@ -175,12 +175,10 @@ EnhancedTableHead.propTypes = {
 	rowCount: PropTypes.number.isRequired,
 };
 
-
-const ProductsContainer = ( { token, products,} ) => {
-
+const ProductsContainer = ({ token, products }) => {
 	const EnhancedTableToolbar = (props) => {
 		const { numSelected } = props;
-	
+
 		return (
 			<Toolbar
 				sx={{
@@ -214,10 +212,10 @@ const ProductsContainer = ( { token, products,} ) => {
 						Lista de productos
 					</Typography>
 				)}
-	
+
 				{numSelected > 0 ? (
 					<Tooltip title='Delete'>
-						<IconButton onClick={ deleteAll }>
+						<IconButton onClick={deleteAll}>
 							<DeleteIcon />
 						</IconButton>
 					</Tooltip>
@@ -232,7 +230,6 @@ const ProductsContainer = ( { token, products,} ) => {
 		);
 	};
 
-	
 	EnhancedTableToolbar.propTypes = {
 		numSelected: PropTypes.number.isRequired,
 	};
@@ -253,11 +250,11 @@ const ProductsContainer = ( { token, products,} ) => {
 			.catch((err) => notifyError(err.response.data.error));
 	};
 
-	const deleteAll = ()=> {
-		selected.forEach((item)=>{
-			baseURL.delete(`admin/product/${item}`, {headers: { token } })
-		})
-	}
+	const deleteAll = () => {
+		selected.forEach((item) => {
+			baseURL.delete(`admin/product/${item}`, { headers: { token } });
+		});
+	};
 
 	const navigate = useNavigate();
 	const [order, setOrder] = React.useState('asc');
@@ -275,14 +272,13 @@ const ProductsContainer = ( { token, products,} ) => {
 
 	const handleSelectAllClick = (event) => {
 		if (event.target.checked) {
-			console.log(event.target.checked)
+			console.log(event.target.checked);
 			const newSelecteds = products.map((n) => n.id);
 			setSelected(newSelecteds);
 			return;
 		}
 		setSelected([]);
 	};
-
 
 	const handleClick = (event, title) => {
 		const selectedIndex = selected.indexOf(title);
@@ -326,8 +322,8 @@ const ProductsContainer = ( { token, products,} ) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<Box sx={{ width: '100%' }}>
-				<Paper sx={{ width: '100%', mb: 2 }}>
+			<Box>
+				<Paper>
 					<EnhancedTableToolbar numSelected={selected.length} />
 					<TableContainer>
 						<Table
@@ -339,7 +335,7 @@ const ProductsContainer = ( { token, products,} ) => {
 								numSelected={selected.length}
 								order={order}
 								orderBy={orderBy}
-								onSelectAllClick={ handleSelectAllClick }
+								onSelectAllClick={handleSelectAllClick}
 								onRequestSort={handleRequestSort}
 								rowCount={products.length}
 							/>

@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../redux/actions';
 import style from './Home.module.scss';
 
-
 //COMPONENTES
 import ProductsContainer from '../../components/ProductsContainer/ProductsContainer';
 import Sidebar from '../../components/SideBar/Sidebar';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -21,12 +20,13 @@ const Home = () => {
 
 	return (
 		<>
-		<Sidebar />
-		<Grid container direction='row' className={style.container}>
-			{products ? (
-				<ProductsContainer products={products} token={token} />
-			) : null}
-		</Grid>
+			<Sidebar title='Inicio'>
+				<Box>
+					{products ? (
+						<ProductsContainer products={products} token={token} />
+					) : null}
+				</Box>
+			</Sidebar>
 		</>
 	);
 };
