@@ -261,7 +261,6 @@ const ProductsContainer = ({ token, products }) => {
 
 	const handleSelectAllClick = (event) => {
 		if (event.target.checked) {
-			console.log(event.target.checked);
 			const newSelecteds = products.map((n) => n.id);
 			setSelected(newSelecteds);
 			return;
@@ -269,12 +268,12 @@ const ProductsContainer = ({ token, products }) => {
 		setSelected([]);
 	};
 
-	const handleClick = (event, title) => {
-		const selectedIndex = selected.indexOf(title);
+	const handleClick = (event, id) => {
+		const selectedIndex = selected.indexOf(id);
 		let newSelected = [];
 
 		if (selectedIndex === -1) {
-			newSelected = newSelected.concat(selected, title);
+			newSelected = newSelected.concat(selected, id);
 		} else if (selectedIndex === 0) {
 			newSelected = newSelected.concat(selected.slice(1));
 		} else if (selectedIndex === selected.length - 1) {
@@ -344,13 +343,13 @@ const ProductsContainer = ({ token, products }) => {
 								{stableSort(products, getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 									.map((products, index) => {
-										const isItemSelected = isSelected(products.title);
+										const isItemSelected = isSelected(products.id);
 										const labelId = `enhanced-table-checkbox-${index}`;
 
 										return (
 											<TableRow
 												hover
-												onClick={(event) => handleClick(event, products.title)}
+												onClick={(event) => handleClick(event, products.id)}
 												role='checkbox'
 												aria-checked={isItemSelected}
 												tabIndex={-1}
