@@ -1,35 +1,39 @@
-import style from './Sidebar.module.scss';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import AppBar from '@mui/material/AppBar';
-import Drawer from '@mui/material/Drawer';
-import ListItem from '@mui/material/ListItem';
-import HomeIcon from '@mui/icons-material/Home';
-import AddIcon from '@mui/icons-material/Add';
-import CategoryIcon from '@mui/icons-material/Category';
-import GroupIcon from '@mui/icons-material/Group';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { logOut } from '../../redux/actions';
+
+//COMPONENTES
+import {Toolbar, CssBaseline, Divider, IconButton, Typography, Box } from '@mui/material'
+import { ListItemIcon, ListItemText, ListItem , AppBar, Drawer, Grid } from '@mui/material';
 import Everylogopf from '../../components/img/Everylogopf.png';
-import { CardActionArea, Grid } from '@mui/material';
-import Fab from '@mui/material/Fab';
+
+//ICONOS
+import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import GroupIcon from '@mui/icons-material/Group';
+import LogoutIcon from '@mui/icons-material/Logout';
+import CategoryIcon from '@mui/icons-material/Category';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
+
+
 const drawerWidth = 240;
 
-function Sidebar(props) {
-	const user = useSelector((state) => state.currentUser);
-	const [mobileOpen, setMobileOpen] = React.useState(false);
+const Sidebar = (props) => {
+	const dispatch = useDispatch();
+	const user = useSelector(state => state.currentUser);
+	const token = useSelector(state => state.currentUser.accessToken);
 
+	const [mobileOpen, setMobileOpen] = useState(false);
 	const navigate = useNavigate();
+
+	useEffect(()=>{
+		if(!token){
+			navigate('/');
+		};
+	},[])
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -73,7 +77,10 @@ function Sidebar(props) {
 				<ListItemText primary='User' />
 			</ListItem>
 			<Divider />
-			<ListItem>
+			<ListItem button onClick={() => {
+					dispatch( logOut() )
+					navigate('/');
+				}}>
 				<ListItemIcon>
 					<LogoutIcon   color='secondary' />
 				</ListItemIcon>

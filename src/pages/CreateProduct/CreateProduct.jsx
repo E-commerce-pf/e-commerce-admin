@@ -7,6 +7,7 @@ import Sidebar from '../../components/SideBar/Sidebar';
 import Everylogopf from '../../components/img/Everylogopf.png';
 
 //COMPONENTES
+import ImageCarrousel from '../../components/imageCarrousel/ImageCarrousel';
 import uploadImage from '../../utils/uploadImage';
 import { useDropzone } from 'react-dropzone';
 import { notifyError, notifySuccess } from '../../utils/notifications';
@@ -29,8 +30,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import Slide from '@mui/material/Slide';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -120,26 +119,31 @@ const CreateProduct = () => {
 				<CssBaseline />
 				<Box
 					sx={{
-						marginTop: 8,
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
 					}}
 				>
-					<img src={Everylogopf} alt='img' width='150px' height='100px' />
-
-					<Typography component='h1' variant='h5'>
-						Create product exclusive
-					</Typography>
 					<Box
 						component='form'
 						noValidate
 						onSubmit={handlerSubmit}
 						sx={{ mt: 3 }}
 					>
-						{product.image ? (
-							<div>
-								<img src={product.image} />
+						<Grid item xs={12} sm={6} >
+							<div className={style.dropzone} {...getRootProps()}>
+								<input {...getInputProps()} />
+								<p>Puede arrastras las imagenes en esta zona</p>
+							</div>
+							<Box sx={{ width: '100%' }} className={style.test}>
+								<Typography> {product.image.length} / 5</Typography>
+								<progress value={!status.running ? 0 : status.running === 100 ? 0 : status.running } max='100' />
+							</Box>
+						</Grid>
+
+						<div className={style.preview}>
+							<ImageCarrousel images={product.image}/>
+							{product.image ?
 								<Button
 									value='clear'
 									fullWidth
@@ -153,28 +157,11 @@ const CreateProduct = () => {
 								>
 									Delete image
 								</Button>
-								<Typography>{product.image.length} / 5</Typography>
+								: null
+							}
+							
+						</div>
 
-								<Box sx={{ width: '100%' }}>
-									<LinearProgress value={status.running} max='100' />
-								</Box>
-							</div>
-						) : (
-							<Grid item xs={12} sm={6} {...getRootProps()}>
-								<input {...getInputProps()} />
-								<Button
-									type='submit'
-									fullWidth
-									variant='contained'
-									sx={{ mt: 3, mb: 2 }}
-									color='primary'
-									onClick={handlerSubmit}
-								>
-									<UploadIcon /> Upload Image 1 - 5
-								</Button>
-								<Box sx={{ width: '100%' }}></Box>
-							</Grid>
-						)}
 						<Grid container spacing={2}>
 							<Grid item xs={12} sm={6}>
 								<TextField
