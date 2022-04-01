@@ -1,5 +1,5 @@
 import baseURL from "../config/baseUrl";
-import {notifyError, notifySuccess} from '../utils/notifications'
+import { notifyError } from '../utils/notifications'
 
 //ACTIONS
 export const LOGIN = 'LOGIN';
@@ -53,6 +53,12 @@ export const logIn =  (email, password, navigate) =>{
                   navigate('/home');
             })
             .catch(res => notifyError(res.response.data.error))
+      }
+};
+
+export const logOut = ()=>{
+      return dispatch =>{
+            dispatch( {type: LOGIN, payload: {} } )
       }
 };
 
