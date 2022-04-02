@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -5,8 +6,22 @@ import { useSelector } from 'react-redux';
 import { logOut } from '../../redux/actions';
 
 //COMPONENTES
-import {Toolbar, CssBaseline, Divider, IconButton, Typography, Box } from '@mui/material'
-import { ListItemIcon, ListItemText, ListItem , AppBar, Drawer, Grid } from '@mui/material';
+import {
+	Toolbar,
+	CssBaseline,
+	Divider,
+	IconButton,
+	Typography,
+	Box,
+} from '@mui/material';
+import {
+	ListItemIcon,
+	ListItemText,
+	ListItem,
+	AppBar,
+	Drawer,
+	Grid,
+} from '@mui/material';
 import Everylogopf from '../../components/img/Everylogopf.png';
 
 //ICONOS
@@ -16,24 +31,38 @@ import GroupIcon from '@mui/icons-material/Group';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CategoryIcon from '@mui/icons-material/Category';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
 
 const Sidebar = (props) => {
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
 	const dispatch = useDispatch();
-	const user = useSelector(state => state.currentUser);
-	const token = useSelector(state => state.currentUser.accessToken);
+	const user = useSelector((state) => state.currentUser);
+	const token = useSelector((state) => state.currentUser.accessToken);
 
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const navigate = useNavigate();
 
-	useEffect(()=>{
-		if(!token){
+	useEffect(() => {
+		if (!token) {
 			navigate('/');
-		};
-	},[])
+		}
+	}, []);
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -48,17 +77,17 @@ const Sidebar = (props) => {
 			</Toolbar>
 			<ListItem>
 				<ListItemIcon>
-					<AdminPanelSettingsIcon  color='secondary' />
-				<Typography variant='body4' color='textSecondary' component='p'> 
-				<strong>{user.name}</strong> <br /> <strong>{user.lastName}</strong> 
-				</Typography>
+					<AdminPanelSettingsIcon color='secondary' />
+					<Typography variant='body4' color='textSecondary' component='p'>
+						<strong>{user.name}</strong> <br /> <strong>{user.lastName}</strong>
+					</Typography>
 				</ListItemIcon>
-				<ListItemText/>
+				<ListItemText />
 			</ListItem>
 			<Divider />
 
-			<ListItem  button onClick={() => navigate('/home')}>
-				<ListItemIcon >
+			<ListItem button onClick={() => navigate('/home')}>
+				<ListItemIcon>
 					<HomeIcon color='secondary' />
 				</ListItemIcon>
 				<ListItemText primary='Home' />
@@ -66,29 +95,44 @@ const Sidebar = (props) => {
 
 			<ListItem button onClick={() => navigate('/categories')}>
 				<ListItemIcon>
-					<CategoryIcon color='secondary'  />
+					<CategoryIcon color='secondary' />
 				</ListItemIcon>
 				<ListItemText primary='Category' />
 			</ListItem>
 			<ListItem button onClick={() => navigate('/users')}>
 				<ListItemIcon>
-					<GroupIcon  color='secondary'  />
+					<GroupIcon color='secondary' />
 				</ListItemIcon>
 				<ListItemText primary='User' />
 			</ListItem>
 			<Divider />
-			<ListItem button onClick={() => {
-					dispatch( logOut() )
-					navigate('/');
-				}}>
+			<ListItem button onClick={handleClickOpen}>
+				<Dialog
+					open={open}
+					onClose={handleClose} //funcion para cerrar el dialog
+					aria-labelledby='alert-dialog-title'
+				>
+					<DialogTitle id='alert-dialog-title'>
+						{'Are you sure you want to log out?'}
+					</DialogTitle>
+					<DialogActions>
+						<Button onClick={handleClose}>Disagree</Button>
+						<Button
+							onClick={() => {
+								dispatch(logOut());
+								navigate('/');
+							}}
+							autoFocus
+						>
+							log out
+						</Button>
+					</DialogActions>
+				</Dialog>
 				<ListItemIcon>
-					<LogoutIcon   color='secondary' />
+					<LogoutIcon color='secondary' />
 				</ListItemIcon>
 				<ListItemText primary='Logout' />
 			</ListItem>
-		
-	
-			
 		</div>
 	);
 
@@ -166,6 +210,6 @@ const Sidebar = (props) => {
 			</Box>
 		</Box>
 	);
-}
+};
 
 export default Sidebar;

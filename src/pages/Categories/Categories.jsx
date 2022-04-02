@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { notifyError, notifySuccess } from '../../utils/notifications';
 import { useNavigate } from 'react-router-dom';
-import { Button, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Categories = () => {
@@ -40,12 +40,11 @@ const Categories = () => {
 	};
 
 	return (
-		<div className={style.container}>
-			<Sidebar title='List categories'>
+		<Sidebar title='List categories'>
+			<div className={style.container}>
 				<div className={style.categoriesContainer}>
 					<div className={style.title}>
-						<h1>Name</h1>
-						<h1>Products</h1>
+						<h1>List Categories</h1>
 					</div>
 
 					<div className={style.categories}>
@@ -53,6 +52,7 @@ const Categories = () => {
 							? categories.map((item) => {
 									return (
 										<div
+											div
 											key={item.id}
 											className={style.category}
 											onClick={() => navigate(`/category/${item.id}`)}
@@ -61,7 +61,6 @@ const Categories = () => {
 											<h2>{item.products}</h2>
 											<Button
 												variant='contained'
-												color='error'
 												onClick={() => {
 													baseURL
 														.delete(`admin/categories/${item.id}`, {
@@ -92,8 +91,8 @@ const Categories = () => {
 						</Button>
 					</form>
 				</div>
-			</Sidebar>
-		</div>
+			</div>
+		</Sidebar>
 	);
 };
 export default Categories;

@@ -44,7 +44,8 @@ const Users = () => {
 	return (
 		<Sidebar title='List user'>
 			<div className={style.tableContainer}>
-				<h1>Users</h1>
+				<h1 className={style.title}>List Users</h1>
+				
 				<div className={style.titleTable}>
 					<h4>Email</h4>
 					<h4>Name</h4>
