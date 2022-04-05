@@ -18,7 +18,7 @@ const TransactionContainer = ( {transaction, type} )=>{
       }
 
       const cancelTransaction = async (id)=>{
-            baseURL.get(`/payment/cancel/${id}`)
+            baseURL.get(`/payment/cancel/${id}?location=admin`)
             .then(res => notifySuccess(res.data.success))
             .catch(err => notifyError(err.response.data.error))
       }
