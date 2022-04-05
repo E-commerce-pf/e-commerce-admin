@@ -10,6 +10,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 
 const TransactionContainer = ( {transaction, type} )=>{
+      console.log(transaction)
       const navigate = useNavigate();
       const aproveTransaction = async (id)=>{
             await baseURL.get(`/payment/capture/${id}`)
