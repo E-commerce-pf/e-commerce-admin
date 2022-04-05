@@ -105,6 +105,12 @@ const Sidebar = (props) => {
 				</ListItemIcon>
 				<ListItemText primary='User' />
 			</ListItem>
+			<ListItem button onClick={() => navigate('/transactions')}>
+				<ListItemIcon>
+					<CategoryIcon color='secondary' />
+				</ListItemIcon>
+				<ListItemText primary='Transactions' />
+			</ListItem>
 			<Divider />
 			<ListItem button onClick={handleClickOpen}>
 				<Dialog
