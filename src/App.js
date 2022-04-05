@@ -8,7 +8,7 @@ import EditUser from './pages/Users/EditUser';
 import CreateProduct from './pages/CreateProduct/CreateProduct';
 import Categories from './pages/Categories/Categories';
 import Category from './pages/Category/Category';
-
+import ViewTransaction from './pages/ViewTransaction/ViewTransaction';
 
 const App = () => {
 	return (
@@ -23,6 +23,8 @@ const App = () => {
 				<Route path='/create/product' element={<CreateProduct />} />
 				<Route path='/categories' element={<Categories />} />
 				<Route path='/category/:id' element={<Category />} />
+				<Route path='/viewtransaction/:id' element={<ViewTransaction />} />
+
 			</Routes>
 		</>
 	);

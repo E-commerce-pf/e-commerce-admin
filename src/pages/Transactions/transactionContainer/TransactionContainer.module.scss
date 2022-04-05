@@ -1,0 +1,30 @@
+.container{
+      .title{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr) 200px;
+            text-align: center;
+      }
+      
+      .transaction{
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            text-align: center;
+            .data{
+                  display: grid;
+                  grid-template-columns: repeat(7, 1fr);
+                  gap: 40px;
+                  margin-left: 10px;
+                  cursor: pointer;
+            }
+            .data:hover{
+                  background-color: rgb(187, 187, 187);
+            }
+
+            .buttons{
+                  button{
+                        margin-right: 5px;
+                  }
+            }
+      }
+      
+}
