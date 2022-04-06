@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import style from './ProductsContainer.module.scss';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
@@ -26,6 +26,7 @@ import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import baseURL from '../../config/baseUrl';
+import { Autocomplete, TextField } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { indigo } from '@mui/material/colors';
@@ -115,6 +116,7 @@ function EnhancedTableHead(props) {
 	const createSortHandler = (property) => (event) => {
 		onRequestSort(event, property);
 	};
+
 	return (
 		<TableHead className={style.tablecontainer}>
 			<TableRow>
@@ -164,10 +166,14 @@ EnhancedTableHead.propTypes = {
 	rowCount: PropTypes.number.isRequired,
 };
 
-const ProductsContainer = ({ token, products }) => {
+const ProductsContainer = (props) => {
+	let {token}=props;
+	const [products, setProducts] = useState([]);
+	useEffect(()=>{
+		setProducts(props.products)
+	},[props])
 	const EnhancedTableToolbar = (props) => {
 		const { numSelected } = props;
-
 		return (
 			<Toolbar
 				sx={{
@@ -198,9 +204,24 @@ const ProductsContainer = ({ token, products }) => {
 						id='tableTitle'
 						component='div'
 					>
-						Lista de productos
+						Products list
 					</Typography>
 				)}
+
+				<Autocomplete
+					color='inherit'
+					options={products}
+					isOptionEqualToValue={(option, value) => option.title === value.title}
+					getOptionLabel={(option) => option.title}
+					onChange={(event, newValue) => {
+						setProducts([newValue])
+					}}
+				
+					sx={{ width: 300 }}
+					renderInput={(params) => (
+						<TextField {...params}  label='Search for products' variant='outlined'  />
+					)}
+				></Autocomplete>
 
 				{numSelected > 0 ? (
 					<Tooltip title='Delete'>
