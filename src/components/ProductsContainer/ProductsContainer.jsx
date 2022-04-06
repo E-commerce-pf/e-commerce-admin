@@ -169,8 +169,10 @@ EnhancedTableHead.propTypes = {
 const ProductsContainer = (props) => {
 	let {token}=props;
 	const [products, setProducts] = useState([]);
+	const [allProducts, setAllProducts] = useState(["All products"]);
 	useEffect(()=>{
 		setProducts(props.products)
+		setAllProducts([...allProducts,...props.products])
 	},[props])
 	const EnhancedTableToolbar = (props) => {
 		const { numSelected } = props;
@@ -210,11 +212,11 @@ const ProductsContainer = (props) => {
 
 				<Autocomplete
 					color='inherit'
-					options={products}
+					options={allProducts}
 					isOptionEqualToValue={(option, value) => option.title === value.title}
-					getOptionLabel={(option) => option.title}
+					getOptionLabel={(option) => option.title||option}
 					onChange={(event, newValue) => {
-						setProducts([newValue])
+						newValue==="All products"?setProducts(allProducts.slice(1)):setProducts([newValue])
 					}}
 				
 					sx={{ width: 300 }}
