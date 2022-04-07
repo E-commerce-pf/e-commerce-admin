@@ -38,14 +38,15 @@ const TransactionContainer = ( {transaction, type} )=>{
                         <h2>Date</h2>
                   </div>
                   {transaction ? transaction.map(item =>{
-                        const date = item.createdAt.split('-').splice(0, 2).join('/');
+                        const date = item.createdAt.split('').splice(0,10).join('');
                         console.log(date)
+                        console.log(transaction)
                         return <div className={style.transaction}>
                               <div className={style.data} onClick={()=> navigate(`/viewtransaction/${item.id}`)}>
                                     <h4>{item.state}</h4>
                                     <h4>{item.User.name} {item.User.lastName}</h4>
-                                    <h4>{item.User.city ? item.User.city : 'None' }</h4>
-                                    <h4>{item.User.address ? item.User.address : 'None'}</h4>
+                                    <h4>{item.city ? item.city : 'None' }</h4>
+                                    <h4>{item.address ? item.address : 'None'}</h4>
                                     <h4>{item.cart.totalPrice} </h4>
                                     <h4>{item.cart.productsInCart.length} </h4>
                                     <h4> {date} </h4>
