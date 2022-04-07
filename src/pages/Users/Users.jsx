@@ -69,14 +69,14 @@ const Users = () => {
 									{time.join('/')}
 									{yearsDiff + monthsDiff
 										? ', ' +
-										  (yearsDiff
+										(yearsDiff
 												? yearsDiff + ' year' + (yearsDiff === 1 ? '' : 's')
 												: '') +
-										  ' ' +
-										  (monthsDiff
+										' ' +
+										(monthsDiff
 												? monthsDiff + ' month' + (monthsDiff === 1 ? '' : 's')
 												: '') +
-										  ' ago'
+										' ago'
 										: ''}
 								</p>
 								<p>{e.isAdmin ? 'Admin' : 'Client'}</p>
@@ -87,7 +87,7 @@ const Users = () => {
 									</button>
 									<div className={style.menuContainer} id={`m${e.id}`}>
 										<List>
-											<ListItemButton
+											<button
 												component='button'
 												onClick={() => {
 													baseURL
@@ -103,9 +103,9 @@ const Users = () => {
 												}}
 											>
 												<ListItemText primary='Forzar contraseña' />
-											</ListItemButton>
+											</button>
 
-											<ListItemButton
+											<button
 												component='button'
 												onClick={() => {
 													baseURL
@@ -121,9 +121,9 @@ const Users = () => {
 												}}
 											>
 												<ListItemText primary='Cambiar privilegios' />
-											</ListItemButton>
+											</button>
 
-											<ListItemButton
+											<button
 												component='button'
 												onClick={() => {
 													baseURL
@@ -139,7 +139,7 @@ const Users = () => {
 												}}
 											>
 												<ListItemText primary='Banear usuario' />
-											</ListItemButton>
+											</button>
 										</List>
 									</div>
 								</div>

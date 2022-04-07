@@ -1,19 +1,24 @@
 .container{
       .title{
             display: grid;
-            grid-template-columns: repeat(7, 1fr) 200px;
+            grid-template-columns: repeat(7, 1fr);
             text-align: center;
       }
       
       .transaction{
             display: grid;
-            grid-template-columns: 1fr 200px;
+            grid-template-columns: 1fr;
             text-align: center;
             .data{
                   display: grid;
                   grid-template-columns: repeat(7, 1fr);
                   gap: 40px;
+                  margin-bottom: 10px;
                   margin-left: 10px;
+                  height: 70px;
+                  border-radius: 5px;
+                  border: 1px solid #25008a;
+                  background-color: #fff;
                   cursor: pointer;
             }
             .data:hover{

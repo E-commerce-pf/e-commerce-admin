@@ -25,7 +25,6 @@ const Transactions = ()=>{
                   <Sidebar/>
                   <div className={style.transaction}>
                         <TransactionContainer transaction={complete} type={'Complete'}/>
-                        <TransactionContainer transaction={process} type={'Process'}/>
                         <TransactionContainer transaction={canceled} type={'Canceled'}/>
                   </div>
             </div>
