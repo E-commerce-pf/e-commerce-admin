@@ -25,6 +25,7 @@ import {
 import Everylogopf from '../../components/img/Everylogopf.png';
 
 //ICONOS
+import PaidIcon from '@mui/icons-material/Paid';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
@@ -107,7 +108,7 @@ const Sidebar = (props) => {
 			</ListItem>
 			<ListItem button onClick={() => navigate('/transactions')}>
 				<ListItemIcon>
-					<CategoryIcon color='secondary' />
+					<PaidIcon color='secondary' />
 				</ListItemIcon>
 				<ListItemText primary='Transactions' />
 			</ListItem>

@@ -77,17 +77,17 @@ const Categories = () => {
 											</Button>
 										</div>
 									);
-							  })
+							})
 							: ''}
 					</div>
 				</div>
 
 				<div className={style.formCreateCategory}>
-					<h1>Crear una categoria</h1>
+					<h1>Create new category</h1>
 					<form onSubmit={handlerSubmit}>
 						<TextField label='name' id='name' />
 						<Button type='submit' variant='contained'>
-							Crear
+							Create
 						</Button>
 					</form>
 				</div>
