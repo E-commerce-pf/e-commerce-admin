@@ -24,28 +24,31 @@ const TransactionContainer = ( {transaction, type} )=>{
             .catch(err => notifyError(err.response.data.error))
       }
 
+
       return(
             <div className={style.container}>
                   <h2>{type}</h2>
                   <div className={style.title}>
                         <h2>State</h2>
                         <h2>Name</h2>
-                        <h2>Last Name</h2>
                         <h2>City</h2>
                         <h2>Address</h2>
                         <h2>Amount</h2>
                         <h2>Products</h2>
+                        <h2>Date</h2>
                   </div>
                   {transaction ? transaction.map(item =>{
+                        const date = item.createdAt.split('-').splice(0, 2).join('/');
+                        console.log(date)
                         return <div className={style.transaction}>
                               <div className={style.data} onClick={()=> navigate(`/viewtransaction/${item.id}`)}>
                                     <h4>{item.state}</h4>
-                                    <h4>{item.User.name}</h4>
-                                    <h4>{item.User.lastName}</h4>
+                                    <h4>{item.User.name} {item.User.lastName}</h4>
                                     <h4>{item.User.city ? item.User.city : 'None' }</h4>
                                     <h4>{item.User.address ? item.User.address : 'None'}</h4>
                                     <h4>{item.cart.totalPrice} </h4>
                                     <h4>{item.cart.productsInCart.length} </h4>
+                                    <h4> {date} </h4>
                               </div>
 
                                     {type === 'Process' ? 
