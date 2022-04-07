@@ -102,7 +102,7 @@ const Users = () => {
 														);
 												}}
 											>
-												<ListItemText primary='Forzar contraseña' />
+												<ListItemText primary='Force password' />
 											</button>
 
 											<button
@@ -120,7 +120,7 @@ const Users = () => {
 														);
 												}}
 											>
-												<ListItemText primary='Cambiar privilegios' />
+												<ListItemText primary='Change privileges' />
 											</button>
 
 											<button
@@ -138,7 +138,7 @@ const Users = () => {
 														);
 												}}
 											>
-												<ListItemText primary='Banear usuario' />
+												<ListItemText primary='Ban user' />
 											</button>
 										</List>
 									</div>
